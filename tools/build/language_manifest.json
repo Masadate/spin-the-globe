@@ -1,0 +1,188 @@
+{
+ "fr": {
+  "voice": "gTTS fr/fr",
+  "country": "fr",
+  "lang": "fr",
+  "text": "Bonjour ! Bienvenue à notre festival. C'est un plaisir de vous rencontrer. Passez une excellente journée !"
+ },
+ "de": {
+  "voice": "gTTS de/com",
+  "country": "de",
+  "lang": "de",
+  "text": "Hallo! Willkommen auf unserem Festival. Schön, Sie kennenzulernen. Ich wünsche Ihnen einen wunderschönen Tag!"
+ },
+ "es": {
+  "voice": "gTTS es/es",
+  "country": "es",
+  "lang": "es",
+  "text": "¡Hola! Bienvenidos a nuestro festival. Es un placer conocerte. ¡Que tengas un día maravilloso!"
+ },
+ "pt-BR": {
+  "voice": "gTTS pt/com.br",
+  "country": "br",
+  "lang": "pt",
+  "text": "Olá! Bem-vindos ao nosso festival. Muito prazer em conhecer você. Tenha um dia maravilhoso!"
+ },
+ "it": {
+  "voice": "gTTS it/com",
+  "country": "it",
+  "lang": "it",
+  "text": "Ciao! Benvenuti al nostro festival. Piacere di conoscerti. Ti auguro una splendida giornata!"
+ },
+ "ru": {
+  "voice": "gTTS ru/com",
+  "country": "ru",
+  "lang": "ru",
+  "text": "Здравствуйте! Добро пожаловать на наш фестиваль. Приятно познакомиться. Хорошего вам дня!"
+ },
+ "zh": {
+  "voice": "gTTS zh-CN/com",
+  "country": "cn",
+  "lang": "zh",
+  "text": "你好！欢迎来到我们的校园节。很高兴认识你。祝你有美好的一天！"
+ },
+ "ko": {
+  "voice": "gTTS ko/com",
+  "country": "kr",
+  "lang": "ko",
+  "text": "안녕하세요! 저희 축제에 오신 것을 환영합니다. 만나서 반갑습니다. 좋은 하루 보내세요!"
+ },
+ "ar": {
+  "voice": "gTTS ar/com",
+  "country": "eg",
+  "lang": "ar",
+  "text": "مرحبًا! أهلًا بكم في مهرجاننا. سعيد بلقائكم. أتمنى لكم يومًا رائعًا!"
+ },
+ "hi": {
+  "voice": "gTTS hi/com",
+  "country": "in",
+  "lang": "hi",
+  "text": "नमस्ते! हमारे उत्सव में आपका स्वागत है। आपसे मिलकर खुशी हुई। आपका दिन शुभ हो!"
+ },
+ "th": {
+  "voice": "gTTS th/com",
+  "country": "th",
+  "lang": "th",
+  "text": "สวัสดีค่ะ! ยินดีต้อนรับสู่เทศกาลของเรา ยินดีที่ได้รู้จักค่ะ ขอให้มีวันที่ดีนะคะ!"
+ },
+ "vi": {
+  "voice": "gTTS vi/com",
+  "country": "vn",
+  "lang": "vi",
+  "text": "Xin chào! Chào mừng bạn đến với lễ hội của chúng tôi. Rất vui được gặp bạn. Chúc bạn một ngày tuyệt vời!"
+ },
+ "id": {
+  "voice": "gTTS id/com",
+  "country": "id",
+  "lang": "id",
+  "text": "Halo! Selamat datang di festival kami. Senang bertemu dengan Anda. Semoga hari Anda menyenangkan!"
+ },
+ "tr": {
+  "voice": "gTTS tr/com",
+  "country": "tr",
+  "lang": "tr",
+  "text": "Merhaba! Festivalimize hoş geldiniz. Tanıştığımıza memnun oldum. Harika bir gün geçirmenizi dilerim!"
+ },
+ "el": {
+  "voice": "gTTS el/com",
+  "country": "gr",
+  "lang": "el",
+  "text": "Γεια σας! Καλώς ήρθατε στο φεστιβάλ μας. Χάρηκα πολύ. Να έχετε μια υπέροχη μέρα!"
+ },
+ "sv": {
+  "voice": "gTTS sv/com",
+  "country": "se",
+  "lang": "sv",
+  "text": "Hej! Välkommen till vår festival. Trevligt att träffas. Ha en underbar dag!"
+ },
+ "nl": {
+  "voice": "gTTS nl/com",
+  "country": "nl",
+  "lang": "nl",
+  "text": "Hallo! Welkom op ons festival. Leuk je te ontmoeten. Nog een fijne dag!"
+ },
+ "pl": {
+  "voice": "gTTS pl/com",
+  "country": "pl",
+  "lang": "pl",
+  "text": "Cześć! Witamy na naszym festiwalu. Miło cię poznać. Życzę wspaniałego dnia!"
+ },
+ "fil": {
+  "voice": "gTTS tl/com",
+  "country": "ph",
+  "lang": "fil",
+  "text": "Kumusta! Maligayang pagdating sa aming festival. Ikinagagalak kitang makilala. Magandang araw sa iyo!"
+ },
+ "ms": {
+  "voice": "gTTS ms/com",
+  "country": "my",
+  "lang": "ms",
+  "text": "Helo! Selamat datang ke festival kami. Gembira dapat berkenalan dengan anda. Selamat menikmati hari yang indah!"
+ },
+ "mn": {
+  "voice": "recording",
+  "country": "mn",
+  "lang": "mn",
+  "text": "Сайн байна уу! Манай наадамд тавтай морилно уу. Танилцсандаа баяртай байна. Сайхан өдрийг өнгөрүүлээрэй!"
+ },
+ "my": {
+  "voice": "gTTS my/com",
+  "country": "mm",
+  "lang": "my",
+  "text": "မင်္ဂလာပါ။ ကျွန်ုပ်တို့ရဲ့ ပွဲတော်ကို ကြိုဆိုပါတယ်။ တွေ့ရတာ ဝမ်းသာပါတယ်။ ပျော်ရွှင်စရာ နေ့လေး ဖြစ်ပါစေ။"
+ },
+ "ur": {
+  "voice": "gTTS ur/com",
+  "country": "pk",
+  "lang": "ur",
+  "text": "السلام علیکم! ہمارے میلے میں خوش آمدید۔ آپ سے مل کر خوشی ہوئی۔ آپ کا دن اچھا گزرے!"
+ },
+ "bn": {
+  "voice": "gTTS bn/com",
+  "country": "bd",
+  "lang": "bn",
+  "text": "হ্যালো! আমাদের উৎসবে আপনাকে স্বাগতম। আপনার সাথে পরিচিত হয়ে ভালো লাগলো। আপনার দিনটি শুভ হোক!"
+ },
+ "ne": {
+  "voice": "gTTS ne/com",
+  "country": "np",
+  "lang": "ne",
+  "text": "नमस्ते! हाम्रो महोत्सवमा स्वागत छ। तपाईंलाई भेटेर खुसी लाग्यो। तपाईंको दिन शुभ रहोस्!"
+ },
+ "si": {
+  "voice": "gTTS si/com",
+  "country": "lk",
+  "lang": "si",
+  "text": "ආයුබෝවන්! අපගේ උත්සවයට සාදරයෙන් පිළිගනිමු. ඔබව හමුවීම සතුටක්. ඔබට සුබ දවසක්!"
+ },
+ "km": {
+  "voice": "gTTS km/com",
+  "country": "kh",
+  "lang": "km",
+  "text": "សួស្តី! សូមស្វាគមន៍មកកាន់ពិធីបុណ្យរបស់យើង។ រីករាយដែលបានជួបអ្នក។ សូមឱ្យអ្នកមានថ្ងៃដ៏ល្អ!"
+ },
+ "sw": {
+  "voice": "gTTS sw/com",
+  "country": "ke",
+  "lang": "sw",
+  "text": "Habari! Karibu kwenye tamasha letu. Nimefurahi kukutana nawe. Uwe na siku njema!"
+ },
+ "fi": {
+  "voice": "gTTS fi/com",
+  "country": "fi",
+  "lang": "fi",
+  "text": "Hei! Tervetuloa festivaaliimme. Hauska tutustua. Mukavaa päivänjatkoa!"
+ },
+ "uk": {
+  "voice": "gTTS uk/com",
+  "country": "ua",
+  "lang": "uk",
+  "text": "Вітаю! Ласкаво просимо на наш фестиваль. Приємно познайомитися. Гарного вам дня!"
+ },
+ "am": {
+  "voice": "gTTS am/com",
+  "country": "et",
+  "lang": "am",
+  "text": "ሰላም! ወደ በዓላችን እንኳን በደህና መጡ። እርስዎን በማግኘቴ ደስ ብሎኛል። መልካም ቀን ይሁንልዎ!"
+ }
+}

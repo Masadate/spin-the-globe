@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d2350">
+<title>Spin the Globe — Guess the Country!</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+
+  <header id="top">
+    <div class="brand"><span class="globe">🌍</span> SPIN THE GLOBE <small>国当てクイズ</small></div>
+    <div id="turnInfo"></div>
+    <div id="stockInfo"></div>
+    <button id="cancelBtn" data-tap="cancel" title="Cancel player (Esc twice)" aria-label="Cancel player">✕</button>
+    <button id="gear" title="Admin (Shift+A)" aria-label="Admin">⚙</button>
+  </header>
+
+  <main id="stage">
+
+    <section id="scr-attract" class="screen">
+      <div class="attract-wheel"><svg class="wheel-svg" viewBox="-210 -210 420 420"></svg></div>
+      <div class="attract-text">
+        <h1>SPIN THE GLOBE</h1>
+        <p class="sub">Guess the Country! <span>国当てクイズ！</span></p>
+        <p class="price"><b>¥500</b> · 2 turns <span>2回挑戦</span></p>
+        <div id="attractSegs" class="seg-row"></div>
+        <p class="everyone">A prize for everyone! <span>参加賞あり！</span></p>
+        <button class="big-btn" data-tap="start">▶ Start <span>スタート</span></button>
+      </div>
+    </section>
+
+    <section id="scr-turn" class="screen">
+      <h2 id="turnTitle"></h2>
+      <div class="turn-body">
+        <div class="wheel-wrap">
+          <svg id="wheel" class="wheel-svg" viewBox="-210 -210 420 420"></svg>
+          <div class="pointer"></div>
+        </div>
+        <div id="segCards"></div>
+      </div>
+    </section>
+
+    <section id="scr-clue" class="screen">
+      <div class="clue-head">
+        <span id="segChip" class="chip"></span>
+        <span id="prompt"></span>
+      </div>
+      <div id="timer"><div></div></div>
+      <div id="cluePanel">
+        <div id="flagFrame" class="panel-item"><img id="flagImg" alt=""></div>
+        <div id="mapFrame" class="panel-item"></div>
+        <div id="shapeFrame" class="panel-item"><svg id="shapeSvg"><path></path></svg></div>
+        <div id="audioFrame" class="panel-item">
+          <div class="eq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div id="audioLabel">Listen! <span>聴いて！</span></div>
+          <div id="audioBar"><div></div></div>
+          <div id="audioBlocked">Press <kbd>R</kbd> or Replay to play</div>
+          <button class="mini-btn" data-tap="replay">🔁 Replay <span>もう一度</span></button>
+        </div>
+        <div id="reveal"></div>
+      </div>
+      <div id="options"></div>
+    </section>
+
+    <section id="scr-jackpot" class="screen">
+      <div class="confetti"></div>
+      <div class="jp-box">
+        <div class="jp-title">🎰 JACKPOT! <span>大当たり！</span></div>
+        <div id="jpBody"></div>
+        <button class="big-btn" data-tap="next">Next ▶ <span>次へ</span></button>
+      </div>
+    </section>
+
+    <section id="scr-result" class="screen">
+      <div id="resultMedal"></div>
+      <div id="resultTier"></div>
+      <div id="resultTurns"></div>
+      <div id="resultGive"></div>
+      <button class="big-btn" data-tap="next">Next player ▶ <span>次の人</span></button>
+    </section>
+
+    <div id="toast" class="toast"></div>
+  </main>
+
+  <footer id="hints"></footer>
+</div>
+
+<div id="admin" hidden>
+  <div class="admin-box">
+    <h2>Admin <small>Shift+A or Esc to close</small><button class="admin-close" data-act="close" aria-label="Close">✕</button></h2>
+    <div class="admin-grid">
+      <section>
+        <h3>Today</h3>
+        <dl id="stats"></dl>
+      </section>
+      <section>
+        <h3>Grand prizes left</h3>
+        <div class="stepper"><button data-act="stock-">−</button><b id="admStock"></b><button data-act="stock+">+</button></div>
+        <h3>Settings</h3>
+        <label>On-screen jackpot odds (%) <input id="setOdds" type="number" min="0" max="50" step="0.5"></label>
+        <label>Question timer (s) <input id="setTimer" type="number" min="5" max="120" step="5"></label>
+        <label><input id="setSfx" type="checkbox"> Sound effects</label>
+        <label><input id="setHints" type="checkbox"> Show key hints</label>
+      </section>
+      <section>
+        <h3>Data</h3>
+        <button data-act="csv">Export CSV</button>
+        <button data-act="undo">Undo last player</button>
+        <button data-act="reset" class="danger">Reset all data</button>
+        <p id="admMsg"></p>
+        <h3>Checks</h3>
+        <p id="assetCheck"></p>
+        <p id="storageCheck"></p>
+        <p id="offlineCheck"></p>
+        <p><a href="credits.html" target="_blank">Credits</a></p>
+      </section>
+    </div>
+  </div>
+</div>
+
+<audio id="clip" preload="auto"></audio>
+
+<script src="js/version.js"></script>
+<script src="js/config.js"></script>
+<script src="js/maps.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
