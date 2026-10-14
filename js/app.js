@@ -284,7 +284,7 @@
 
   function wheelSVG() {
     var R = 200;
-    var out = '<circle r="208" fill="#0b1630" stroke="#ffc93c" stroke-width="6"/>';
+    var out = '<circle r="208" fill="#d82115" stroke="#fff" stroke-width="3"/>';
     wedges().forEach(function (w) {
       var span = w.a1 - w.a0;
       if (span <= 0) return;
@@ -292,7 +292,7 @@
       var p0 = polar(w.a0, R), p1 = polar(w.a1, R);
       var large = span > 180 ? 1 : 0;
       out += '<path d="M0 0L' + p0[0] + " " + p0[1] + "A" + R + " " + R + " 0 " + large + " 1 " + p1[0] + " " + p1[1] +
-        'Z" fill="' + s.color + '" stroke="#0b1630" stroke-width="3"/>';
+        'Z" fill="' + s.color + '" stroke="#fff" stroke-width="3"/>';
       var mid = (w.a0 + w.a1) / 2;
       if (span < 40) {
         var ic = polar(mid, 178);
@@ -306,7 +306,11 @@
           '<text y="44" text-anchor="middle" dominant-baseline="central" font-size="24">' + s.en + "</text></g>";
       }
     });
-    out += '<circle r="26" fill="#fff"/><circle r="11" fill="#ffc93c"/>';
+    for (var b = 0; b < 24; b++) {
+      var bulb = polar(b * 15 + 7.5, 204);
+      out += '<circle cx="' + bulb[0] + '" cy="' + bulb[1] + '" r="2.6" fill="#fff"/>';
+    }
+    out += '<circle r="26" fill="#fff" stroke="#d82115" stroke-width="4"/><circle r="11" fill="#d82115"/>';
     return out;
   }
 
@@ -362,6 +366,7 @@
     game.screen = name;
     var section = name === "reveal" ? "clue" : name;
     $$(".screen").forEach(function (s) { s.classList.toggle("on", s.id === "scr-" + section); });
+    $("#scr-clue").classList.toggle("revealed", name === "reveal");
     document.body.classList.toggle("in-play", !!game.play && name !== "attract" && name !== "result");
     renderHeader();
     renderHints();
@@ -582,7 +587,7 @@
   }
 
   function confetti() {
-    var colors = ["#ffc93c", "#ef4444", "#3b82f6", "#10b981", "#a855f7", "#ffffff"];
+    var colors = ["#ffd54f", "#f39700", "#3b82f6", "#10b981", "#a855f7", "#ffffff"];
     var html = "";
     for (var i = 0; i < 90; i++) {
       html += '<i style="left:' + (Math.random() * 100).toFixed(1) + "%;background:" + colors[i % colors.length] +

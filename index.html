@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0d2350">
-<title>Spin the Globe — Guess the Country!</title>
+<title>Spin the Globe — Frendy 2026 GBBA Seminar Booth</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -23,6 +23,7 @@
     <section id="scr-attract" class="screen">
       <div class="attract-wheel"><svg class="wheel-svg" viewBox="-210 -210 420 420"></svg></div>
       <div class="attract-text">
+        <p class="welcome">Welcome to the <b>Frendy 2026 GBBA Seminar Booth</b> <span>Frendy 2026 GBBAゼミのブースへようこそ！</span></p>
         <h1>SPIN THE GLOBE</h1>
         <p class="sub">Guess the Country! <span>国当てクイズ！</span></p>
         <p class="price"><b>¥500</b> · 2 turns <span>2回挑戦</span></p>
@@ -56,9 +57,11 @@
         <div id="audioFrame" class="panel-item">
           <div class="eq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
           <div id="audioLabel">Listen! <span>聴いて！</span></div>
-          <div id="audioBar"><div></div></div>
+          <div class="audio-ctl">
+            <div id="audioBar"><div></div></div>
+            <button class="mini-btn" data-tap="replay">🔁 Replay <span>もう一度</span></button>
+          </div>
           <div id="audioBlocked">Press <kbd>R</kbd> or Replay to play</div>
-          <button class="mini-btn" data-tap="replay">🔁 Replay <span>もう一度</span></button>
         </div>
         <div id="reveal"></div>
       </div>
@@ -68,7 +71,7 @@
     <section id="scr-jackpot" class="screen">
       <div class="confetti"></div>
       <div class="jp-box">
-        <div class="jp-title">🎰 JACKPOT! <span>大当たり！</span></div>
+        <div class="jp-title"><i class="jp-icon">🎰</i> JACKPOT! <span>大当たり！</span></div>
         <div id="jpBody"></div>
         <button class="big-btn" data-tap="next">Next ▶ <span>次へ</span></button>
       </div>

@@ -83,6 +83,7 @@ The header shows how many grand prizes are left. Adjust the count in the admin p
 | Add Mongolian | Record the Mongolian sentence and save it as `app/assets/audio/language/mn.mp3`. The app picks it up on reload. |
 | Prize names, hand-over text, timer, stock | Edit `app/js/config.js` in TextEdit, then reload. |
 | Where each anthem clip starts | Edit `tools/song_starts.json` (seconds per country code), then rerun `python tools/build_data.py`. Every clip plays 15 s, starting at 0 by default. |
+| New Japanese text | Rerun `python tools/build_fonts.py <font dir>` on the build PC. Without it, new characters show in the system font. |
 
 ### Language clip sentences
 
@@ -98,6 +99,7 @@ python build_maps.py <ne_50m_admin_0_countries.geojson>
 python fetch_anthems.py <download dir>
 python make_language_clips.py
 python build_data.py
+python build_fonts.py <font dir>
 python build_site.py
 node validate.js
 node simulate.js 0.05 0.55 8
@@ -113,5 +115,6 @@ python publish.py "what changed"
 - **Flags:** flag-icons (MIT)
 - **Maps:** Natural Earth 1:50m (public domain)
 - **Anthems:** US Navy Band recordings via Wikimedia Commons (public domain)
+- **Fonts:** Shrikhand, Patua One, Kaisei Decol (SIL Open Font License), matching the Sagamine Festival site
 
 The details are in `app/credits.html`.

@@ -83,6 +83,8 @@ td,th{{border-bottom:1px solid #ddd;padding:4px 8px;text-align:left}}table{{bord
 <h2>National anthems</h2><p>Instrumental recordings by the United States Navy Band, via Wikimedia Commons.</p>
 <table><tr><th>File</th><th>Performer</th><th>Licence</th><th></th></tr>{rows}</table>
 <h2>Language clips</h2><p>Synthesized speech: {html.escape(', '.join(voices))}.</p>
+<h2>Fonts</h2><p>Shrikhand by Jonny Pinhorn, Patua One by LatinoType, Kaisei Decol by the Kaisei Project Authors.
+SIL Open Font License 1.1 (assets/fonts/OFL-*.txt).</p>
 """
     (APP / "credits.html").write_text(page, encoding="utf8")
 
