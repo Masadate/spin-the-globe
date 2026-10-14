@@ -31,7 +31,7 @@ DATA.clues.forEach((c) => { if (!missingFiles.includes(c.id)) perSeg[c.seg] = (p
 for (const seg of ["song", "map", "flag", "lang"]) check(`${seg}: at least 25 usable clues`, perSeg[seg] >= 25, String(perSeg[seg]));
 
 // Rebuild the app's option logic outside the browser and stress it.
-const appSrc = fs.readFileSync(path.join(APP, "js", "app.js"), "utf8");
+const appSrc = fs.readFileSync(path.join(APP, "js", "app.js"), "utf8").replace(/\r\n/g, "\n");
 const grab = (name) => appSrc.match(new RegExp(`function ${name}\\([\\s\\S]*?\\n  }\\n`))[0];
 const optionCode = ["shuffle", "groupOf", "weightedPick", "buildOptions"].map(grab).join("\n");
 const opt = vm.runInNewContext(`var COUNTRIES = DATA.countries; ${optionCode}; buildOptions`, { DATA, Math });

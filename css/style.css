@@ -496,6 +496,12 @@ kbd {
   .admin-grid { grid-template-columns: 1fr; }
 }
 
+/* Narrow phones: the turn pips need the room the name takes. */
+
+@media (max-width: 520px) {
+  .brand .name { display: none; }
+}
+
 /* Animation */
 
 @keyframes spin { to { transform: rotate(360deg); } }

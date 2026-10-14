@@ -81,6 +81,8 @@ async function touchRun(engineName, w, h) {
   await shot("1-attract");
   await page.tap('[data-tap="start"]');
   check(`${tag}: Start button begins a player`, (await screen()) === "scr-turn");
+  const extra = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+  check(`${tag}: page fits the screen width during play`, extra <= 1, `${extra}px too wide`);
   await shot("2-turn");
   await page.tap('.seg-card[data-seg="map"]');
   await sleep(300);
@@ -93,7 +95,13 @@ async function touchRun(engineName, w, h) {
   await sleep(300);
   await shot("5-jackpot");
   await page.tap('#scr-jackpot [data-tap="next"]');
-  check(`${tag}: game ends on result screen`, (await screen()) === "scr-result");
+  for (let i = 0; i < 3; i++) {
+    await page.tap('.seg-card[data-seg="flag"]');
+    await sleep(150);
+    await page.tap("#options .opt >> nth=0");
+    await page.tap('#reveal [data-tap="next"]');
+  }
+  check(`${tag}: game ends on result screen after 5 turns`, (await screen()) === "scr-result");
   await shot("6-result");
   await page.tap('#scr-result [data-tap="next"]');
   check(`${tag}: Next player starts a new game`, (await screen()) === "scr-turn");

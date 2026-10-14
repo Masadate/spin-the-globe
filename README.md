@@ -28,7 +28,7 @@ It runs in Safari 15+ or Chrome on a Mac (macOS 12 Monterey or newer). It needs 
 | Key | Action |
 |---|---|
 | Space | Start a new player / go to the next step |
-| 1 2 3 4 5 | Segment the physical wheel landed on: Song · Location · Flag · Language · JACKPOT |
+| 1 2 3 4 5 | Segment the physical wheel landed on: National Anthem · Location · Flag · Language · JACKPOT |
 | W | Spin the on-screen wheel instead (backup) |
 | A B C D | The option the player chose |
 | N | Player gave no answer |
@@ -38,7 +38,7 @@ It runs in Safari 15+ or Chrome on a Mac (macOS 12 Monterey or newer). It needs 
 | H | Show or hide the key hints |
 | Shift + A | Admin panel |
 
-- Each player gets 2 turns.
+- Each player gets 5 turns. A JACKPOT uses one of them.
 - The app grades answers automatically.
 - The result screen tells staff what to hand over.
 - A second JACKPOT for the same player shows "spin once more". Each player can win one grand prize at most.
@@ -49,30 +49,33 @@ The prize is the higher of the quiz tier and the jackpot tier.
 
 | Result | Prize |
 |---|---|
-| 0 correct | Consolation (drink + candy) |
-| 1 correct | Bronze |
-| 2 correct | Silver |
+| 0–1 correct | Consolation (drink + candy) |
+| 2–3 correct | Bronze |
+| 4–5 correct | Silver |
 | JACKPOT, stock left | Grand prize |
 | JACKPOT, stock gone | Silver ("BIG PRIZE") |
+
+The JACKPOT has a 2% chance per spin, so about 1 player in 10 hits it over 5 turns. The day's pool is 5 grand prizes.
 
 The header shows how many grand prizes are left. Adjust the count in the admin panel if the physical stock differs.
 
 ## Before opening and at closing
 
-- **After the Friday dry run:** Shift + A › **Reset all data** (click twice). This clears the rehearsal players and restores 8 grand prizes.
+- **After the Friday dry run:** Shift + A › **Reset all data** (click twice). This clears the rehearsal players and restores 5 grand prizes.
 - **At 19:00:** Shift + A › **Export CSV**. The file lands in Downloads. Reconcile with the cash: players × ¥500 = cash − float.
 - **Fixing a mistake:** **Undo last player** removes the most recent player and returns a grand prize if one was won.
 
 ## Thursday test checklist
 
+- [ ] The physical wheel's JACKPOT wedge is **7.2°** (2%), and the Song wedge now reads **National Anthem**
 - [ ] App opens from the Desktop in Safari, full screen
-- [ ] Song and Language clips play through the **speaker**
+- [ ] National Anthem and Language clips play through the **speaker**
 - [ ] Clips play through the **headset**
-- [ ] Press **W** until the on-screen wheel lands on Song or Language. The clip must start by itself. If "Press R to play" appears instead, note it and press R.
+- [ ] Press **W** until the on-screen wheel lands on National Anthem or Language. The clip must start by itself. If "Press R to play" appears instead, note it and press R.
 - [ ] If both should play at once, set up a Multi-Output Device in Audio MIDI Setup
 - [ ] Reload the page (Command + R): the grand-prize count and players are kept
 - [ ] Export CSV works
-- [ ] Play a full 2-turn game in ≤ 4 minutes
+- [ ] Time three full 5-turn games, from payment to prize hand-out. Shift + A shows the average play time.
 - [ ] Native speakers listen to their language clips (list below) and report any errors
 
 ## Changing content
@@ -81,7 +84,7 @@ The header shows how many grand prizes are left. Adjust the count in the admin p
 |---|---|
 | Replace a language clip with a real voice | Record the sentence on a phone. Save it as MP3 under the same name in `app/assets/audio/language/` (e.g. `fr.mp3`). |
 | Add Mongolian | Record the Mongolian sentence and save it as `app/assets/audio/language/mn.mp3`. The app picks it up on reload. |
-| Prize names, hand-over text, timer, stock | Edit `app/js/config.js` in TextEdit, then reload. |
+| Turns, prize tiers, prize names, hand-over text, timer, jackpot odds, stock | Edit `app/js/config.js` in TextEdit, then reload. A changed value replaces any value set earlier in the admin panel. |
 | Where each anthem clip starts | Edit `tools/song_starts.json` (seconds per country code), then rerun `python tools/build_data.py`. Every clip plays 15 s, starting at 0 by default. |
 | New Japanese text | Rerun `python tools/build_fonts.py <font dir>` on the build PC. Without it, new characters show in the system font. |
 
@@ -102,7 +105,7 @@ python build_data.py
 python build_fonts.py <font dir>
 python build_site.py
 node validate.js
-node simulate.js 0.05 0.55 8
+node simulate.js
 NODE_PATH=<playwright node_modules> node e2e.js <screenshot dir>
 NODE_PATH=<playwright node_modules> node e2e_online.js <local server url> <screenshot dir>
 python publish.py "what changed"

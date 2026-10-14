@@ -13,7 +13,6 @@
   var SEG_ORDER = ["song", "map", "flag", "lang", "jackpot"];
   var QUIZ_SEGS = ["song", "map", "flag", "lang"];
   var WHEEL_ORDER = ["song", "map", "jackpot", "flag", "lang"];
-  var LADDER = ["consolation", "bronze", "silver"];
   var TIER_RANK = { consolation: 0, bronze: 1, silver: 2, grand: 3 };
   var MEDAL = { consolation: "🍬", bronze: "🥉", silver: "🥈", grand: "🏆" };
   var STORE_KEY = "spinTheGlobe.v1";
@@ -40,10 +39,14 @@
     return {
       stock: CFG.grandPrizeStock,
       settings: { jackpotOdds: CFG.jackpotOdds, timerSeconds: CFG.timerSeconds, sfx: true, hints: true },
+      config: { jackpotOdds: CFG.jackpotOdds, timerSeconds: CFG.timerSeconds, grandPrizeStock: CFG.grandPrizeStock },
       bags: {},
       log: [],
     };
   }
+
+  // A config.js value that changed since the last save replaces the saved value.
+  // A new grand-prize pool counts the grand prizes already won today.
 
   function load() {
     var fresh = freshState();
@@ -51,10 +54,18 @@
       var raw = localStorage.getItem(STORE_KEY);
       if (!raw) return fresh;
       var s = JSON.parse(raw);
-      fresh.stock = typeof s.stock === "number" ? s.stock : fresh.stock;
+      var was = s.config || {};
       fresh.bags = s.bags || {};
       fresh.log = s.log || [];
-      for (var k in s.settings) fresh.settings[k] = s.settings[k];
+      for (var k in s.settings) {
+        if (!(k in fresh.config) || was[k] === CFG[k]) fresh.settings[k] = s.settings[k];
+      }
+      if (was.grandPrizeStock !== CFG.grandPrizeStock) {
+        var won = fresh.log.filter(function (r) { return r.jackpot === "grand"; }).length;
+        fresh.stock = Math.max(0, CFG.grandPrizeStock - won);
+      } else if (typeof s.stock === "number") {
+        fresh.stock = s.stock;
+      }
       return fresh;
     } catch (e) {
       storageOK = false;
@@ -297,13 +308,17 @@
       if (span < 40) {
         var ic = polar(mid, 178);
         out += '<g transform="translate(' + ic[0] + " " + ic[1] + ") rotate(" + mid + ')"><text text-anchor="middle" dominant-baseline="central" font-size="22">' + s.icon + "</text></g>";
-        var tx = polar(mid, 108);
-        out += '<g transform="translate(' + tx[0] + " " + tx[1] + ") rotate(" + (mid - 90) + ')"><text text-anchor="middle" dominant-baseline="central" font-size="17">' + s.en + "</text></g>";
+        var thin = span < 12;
+        var tx = polar(mid, thin ? 128 : 108);
+        out += '<g transform="translate(' + tx[0] + " " + tx[1] + ") rotate(" + (mid - 90) + ')"><text text-anchor="middle" dominant-baseline="central" font-size="' + (thin ? 12 : 17) + '">' + s.en + "</text></g>";
       } else {
         var c = polar(mid, 122);
         out += '<g transform="translate(' + c[0] + " " + c[1] + ") rotate(" + mid + ')">' +
           '<text text-anchor="middle" dominant-baseline="central" font-size="44">' + s.icon + "</text>" +
-          '<text y="44" text-anchor="middle" dominant-baseline="central" font-size="24">' + s.en + "</text></g>";
+          s.en.split(" ").map(function (word, i, words) {
+            var y = words.length > 1 ? 36 + i * 22 : 44;
+            return '<text y="' + y + '" text-anchor="middle" dominant-baseline="central" font-size="' + (words.length > 1 ? 21 : 24) + '">' + word + "</text>";
+          }).join("") + "</g>";
       }
     });
     for (var b = 0; b < 24; b++) {
@@ -606,7 +621,8 @@
   function finishPlay() {
     var p = game.play;
     var correct = p.turns.filter(function (t) { return t.correct; }).length;
-    var tier = LADDER[Math.min(correct, 2)];
+    var min = CFG.minCorrect;
+    var tier = correct >= min.silver ? "silver" : correct >= min.bronze ? "bronze" : "consolation";
     if (p.jackpot && TIER_RANK[p.jackpot] > TIER_RANK[tier]) tier = p.jackpot;
     var rec = {
       n: saved.log.length + 1,
@@ -733,6 +749,8 @@
       var s = CFG.segments[k];
       return '<span class="chip" style="--seg:' + s.color + '">' + s.icon + " " + s.en + " <small>" + s.ja + "</small></span>";
     }).join("");
+    var n = CFG.turnsPerPlayer;
+    $("#priceLine").innerHTML = "<b>¥" + CFG.price + "</b> · " + n + " turns <span>" + n + "回挑戦</span>";
   }
 
   // ---------------------------------------------------------------------------
@@ -786,8 +804,12 @@
     $("#stats").innerHTML = rows.map(function (r) { return "<dt>" + r[0] + "</dt><dd>" + r[1] + "</dd>"; }).join("");
 
     $("#admStock").textContent = saved.stock;
-    $("#setOdds").value = +(saved.settings.jackpotOdds * 100).toFixed(1);
-    $("#setTimer").value = saved.settings.timerSeconds;
+
+    // The asset and offline checks redraw this panel, so skip the field staff are typing in.
+    [["#setOdds", +(saved.settings.jackpotOdds * 100).toFixed(1)], ["#setTimer", saved.settings.timerSeconds]].forEach(function (f) {
+      var el = $(f[0]);
+      if (el !== document.activeElement) el.value = f[1];
+    });
     $("#setSfx").checked = saved.settings.sfx;
     $("#setHints").checked = saved.settings.hints;
 
@@ -887,7 +909,10 @@
     $("#admin").addEventListener("click", function (e) { if (e.target === this) toggleAdmin(false); });
     $("#setOdds").addEventListener("change", function () {
       var v = parseFloat(this.value);
-      if (!(v >= 0 && v <= 50)) return renderAdmin();
+      if (!(v >= 0 && v <= 50)) {
+        this.value = +(saved.settings.jackpotOdds * 100).toFixed(1);
+        return;
+      }
       saved.settings.jackpotOdds = v / 100;
       save();
       drawWheels();
@@ -895,7 +920,7 @@
     $("#setTimer").addEventListener("change", function () {
       var v = parseInt(this.value, 10);
       if (v >= 5 && v <= 120) { saved.settings.timerSeconds = v; save(); }
-      renderAdmin();
+      this.value = saved.settings.timerSeconds;
     });
     $("#setSfx").addEventListener("change", function () { saved.settings.sfx = this.checked; save(); });
     $("#setHints").addEventListener("change", function () { saved.settings.hints = this.checked; save(); renderHints(); });

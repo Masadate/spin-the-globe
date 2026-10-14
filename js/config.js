@@ -1,15 +1,19 @@
 // Booth settings. Safe to edit in any text editor; reload the page afterwards.
-// Values changed in the admin panel (Shift+A) override these and persist.
+// Values changed in the admin panel (Shift+A) override these and persist
+// until the value here changes.
 
 window.CONFIG = {
   price: 500,
-  turnsPerPlayer: 2,
+  turnsPerPlayer: 5,
 
   // Grand prizes available for the whole day ("while supplies last").
-  grandPrizeStock: 8,
+  grandPrizeStock: 5,
 
-  // Jackpot chance for the on-screen spin. The physical wheel uses an 18° wedge (5%).
-  jackpotOdds: 0.05,
+  // Jackpot chance for the on-screen spin. The physical wheel needs a 7.2° wedge (2%).
+  jackpotOdds: 0.02,
+
+  // Correct answers needed for each quiz tier. Fewer than bronze gets the consolation prize.
+  minCorrect: { bronze: 2, silver: 4 },
 
   // Visible countdown per question. It never fails the player automatically.
   timerSeconds: 30,
@@ -26,7 +30,7 @@ window.CONFIG = {
   },
 
   segments: {
-    song: { key: "1", icon: "🎵", en: "Song", ja: "国歌", color: "#a855f7", prompt: "Whose national anthem is this?", promptJa: "どこの国の国歌？" },
+    song: { key: "1", icon: "🎵", en: "National Anthem", ja: "国歌", color: "#a855f7", prompt: "Whose national anthem is this?", promptJa: "どこの国の国歌？" },
     map: { key: "2", icon: "🗺️", en: "Location", ja: "地図", color: "#10b981", prompt: "Which country is highlighted?", promptJa: "この国はどこ？" },
     flag: { key: "3", icon: "🚩", en: "Flag", ja: "国旗", color: "#ef4444", prompt: "Whose flag is this?", promptJa: "どこの国の国旗？" },
     lang: { key: "4", icon: "🗣️", en: "Language", ja: "言語", color: "#3b82f6", prompt: "Where would you hear this language?", promptJa: "どこの国の言葉？" },

@@ -1,14 +1,21 @@
-// Monte Carlo check of the prize rules and grand-prize depletion.
-// Usage: node simulate.js [jackpot odds] [win rate per question] [grand-prize stock]
+// Monte Carlo check of the prize rules and grand-prize depletion. Defaults come from app/js/config.js.
+// Usage: node simulate.js [jackpot odds] [win rate per question] [grand-prize stock] [players per day]
 
-const odds = parseFloat(process.argv[2] || "0.05");
+const fs = require("fs");
+const path = require("path");
+const window = {};
+eval(fs.readFileSync(path.join(__dirname, "..", "app", "js", "config.js"), "utf8"));
+const CFG = window.CONFIG;
+
+const odds = parseFloat(process.argv[2] || CFG.jackpotOdds);
 const winRate = parseFloat(process.argv[3] || "0.55");
-const stock0 = parseInt(process.argv[4] || "8", 10);
+const stock0 = parseInt(process.argv[4] || CFG.grandPrizeStock, 10);
+const PLAYERS = parseInt(process.argv[5] || "90", 10);
+const TURNS = CFG.turnsPerPlayer;
+const MIN = CFG.minCorrect;
 const DAYS = 1000;
-const PLAYERS = 90;
 
 const RANK = { consolation: 0, bronze: 1, silver: 2, grand: 3 };
-const LADDER = ["consolation", "bronze", "silver"];
 
 const tiers = { consolation: 0, bronze: 0, silver: 0, grand: 0 };
 let hits = 0;
@@ -21,7 +28,7 @@ for (let d = 0; d < DAYS; d++) {
     let jackpot = "";
     let correct = 0;
     let turns = 0;
-    while (turns < 2) {
+    while (turns < TURNS) {
       if (Math.random() < odds) {
         if (jackpot) continue; // second jackpot: spin again
         jackpot = stock > 0 ? "grand" : "silver";
@@ -31,7 +38,7 @@ for (let d = 0; d < DAYS; d++) {
       }
       turns++;
     }
-    let tier = LADDER[Math.min(correct, 2)];
+    let tier = correct >= MIN.silver ? "silver" : correct >= MIN.bronze ? "bronze" : "consolation";
     if (jackpot && RANK[jackpot] > RANK[tier]) tier = jackpot;
     tiers[tier]++;
     if (jackpot) hits++;
@@ -45,7 +52,7 @@ soldOutAt.sort((a, b) => a - b);
 const median = soldOutAt[Math.floor(DAYS / 2)];
 const lastAll = soldOutAt.filter((x) => x === Infinity).length;
 
-console.log(`odds ${odds} · win rate ${winRate} · stock ${stock0} · ${PLAYERS} players/day × ${DAYS} days`);
-console.log(`players hitting a jackpot: ${pct(hits)} (theory ${(100 * (1 - (1 - odds) ** 2)).toFixed(1)}%)`);
+console.log(`odds ${odds} · win rate ${winRate} · stock ${stock0} · ${TURNS} turns · ${PLAYERS} players/day × ${DAYS} days`);
+console.log(`players hitting a jackpot: ${pct(hits)} (theory ${(100 * (1 - (1 - odds) ** TURNS)).toFixed(1)}%)`);
 console.log(`tiers: consolation ${pct(tiers.consolation)} · bronze ${pct(tiers.bronze)} · silver ${pct(tiers.silver)} · grand ${pct(tiers.grand)}`);
 console.log(`grand prizes sell out at player #${median === Infinity ? "never (median)" : median} (median); stock lasts the whole day in ${(100 * lastAll / DAYS).toFixed(0)}% of days`);
