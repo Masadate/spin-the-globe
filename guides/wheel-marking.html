@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="How to mark the Spin the Globe booth wheel in seven steps, with measurements for any wheel size.">
+<meta name="description" content="How to mark the hand-cut Spin the Globe booth wheel in seven steps, with measurements for your board.">
 <title>Spin the Globe Wheel Marking</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,7 @@ html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; }
 [hidden] { display: none !important; }
 
-/* Layout: festival-red band, then the workbench (board animation beside the step list), then three reference cards. */
+/* Layout: festival-red band, board size row, then the workbench (board animation beside the step list), then three reference cards. */
 :root {
   --bg: #f7efe9;
   --paper: #fffdfb;
@@ -22,22 +22,24 @@ body { margin: 0; }
   --muted: #76605a;
   --line: rgba(120, 40, 30, 0.16);
   --red-ink: #b3180e;
-  --chip: #fbe4e0;
   --btn: #d82115;
   --btn-ink: #ffffff;
   --band: #d82115;
   --band-ink: #ffffff;
   --band-soft: rgba(255, 255, 255, 0.86);
   --focus: #1f5fd6;
+  --table: #eadfd6;
+  --table-ink: #2a1714;
+  --jp-ink: #9a4a00;
   --board: #ffffff;
   --board-edge: #e3d6cf;
+  --cut: #9f8f86;
   --board-ink: #2a1714;
   --pencil: #3b3431;
   --ruler: #ffd54f;
   --ruler-ink: #5a4310;
   --mark: #d82115;
   --keep: #157a3c;
-  --jp-ink: #9a4a00;
   --f-title: "Shrikhand", "Hiragino Sans", "Yu Gothic UI", Meiryo, cursive;
   --f-head: "Patua One", "Hiragino Sans", "Yu Gothic UI", Georgia, serif;
   --f-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic UI", Meiryo, Roboto, sans-serif;
@@ -50,11 +52,13 @@ body { margin: 0; }
     --muted: #bda7a1;
     --line: rgba(255, 210, 200, 0.15);
     --red-ink: #ff8a7d;
-    --chip: #43201b;
     --btn: #c81d12;
     --band: #9c150b;
     --focus: #8ab4ff;
-    --board: #efe9e1;
+    --table: #33241f;
+    --table-ink: #f6ebe7;
+    --jp-ink: #ffb35c;
+    --board: #f1ebe3;
     --board-edge: #4d3834;
     color-scheme: dark;
   }
@@ -66,11 +70,13 @@ body { margin: 0; }
   --muted: #bda7a1;
   --line: rgba(255, 210, 200, 0.15);
   --red-ink: #ff8a7d;
-  --chip: #43201b;
   --btn: #c81d12;
   --band: #9c150b;
   --focus: #8ab4ff;
-  --board: #efe9e1;
+  --table: #33241f;
+  --table-ink: #f6ebe7;
+  --jp-ink: #ffb35c;
+  --board: #f1ebe3;
   --board-edge: #4d3834;
   color-scheme: dark;
 }
@@ -104,32 +110,20 @@ h1 {
 }
 .intro { max-width: 62ch; margin: 0; color: var(--band-soft); }
 
-/* Wheel size */
+/* Board size */
 .size {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px 14px;
+  gap: 10px 18px;
   padding-block: 22px 6px;
 }
 .size .lbl { font-family: var(--f-head); font-size: 1.1rem; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip {
+.field { display: flex; align-items: center; gap: 6px; color: var(--muted); }
+.field input {
+  width: 5.2em;
   font: inherit;
   font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  padding: 6px 14px;
-  border-radius: 999px;
-  border: 1.5px solid var(--line);
-  background: var(--paper);
-  color: var(--ink);
-  cursor: pointer;
-}
-.chip[aria-pressed="true"] { background: var(--chip); border-color: var(--red-ink); color: var(--red-ink); }
-.other { display: flex; align-items: center; gap: 6px; color: var(--muted); }
-.other input {
-  width: 5.5em;
-  font: inherit;
   font-variant-numeric: tabular-nums;
   padding: 5px 8px;
   border-radius: 8px;
@@ -137,6 +131,8 @@ h1 {
   background: var(--paper);
   color: var(--ink);
 }
+.hint { flex-basis: 100%; margin: 0; color: var(--muted); font-size: 0.92rem; }
+.hint.warn { color: var(--red-ink); font-weight: 700; }
 
 /* Workbench */
 .bench {
@@ -159,7 +155,7 @@ h1 {
   max-width: 600px;
   aspect-ratio: 1;
   border-radius: 14px;
-  background: var(--board);
+  background: var(--table);
   border: 1px solid var(--board-edge);
   box-shadow: 0 6px 18px rgba(90, 30, 20, 0.1);
   overflow: hidden;
@@ -226,14 +222,12 @@ h1 {
 }
 .step .t { font-family: var(--f-head); font-size: 1.15rem; line-height: 1.25; padding-top: 4px; }
 .step .d { color: var(--muted); font-size: 0.95rem; }
-.step .d b { color: var(--red-ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.step .tip { display: block; margin-top: 4px; font-style: italic; }
 .step.done .n { border-color: var(--red-ink); color: var(--red-ink); }
 .step.active { background: var(--paper); border-color: var(--line); box-shadow: 0 4px 12px rgba(90, 30, 20, 0.08); }
 .step.active .n { background: var(--btn); border-color: var(--btn); color: var(--btn-ink); }
 .step.active .d { color: var(--ink); }
-.now b { color: var(--red-ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.now .tip { display: block; margin-top: 4px; font-style: italic; }
+.step .d b, .now b { color: var(--red-ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.step .tip, .now .tip { display: block; margin-top: 4px; font-style: italic; }
 .sw {
   display: inline-block;
   width: 0.72em;
@@ -284,22 +278,17 @@ h1 {
   <div class="wrap">
     <div class="brand">Spin the Globe</div>
     <h1>Marking the wheel</h1>
-    <p class="intro">Seven steps with a pin, string, pencil, ruler and set square. Choose your wheel size, then press Play. The numbers in every step change to match.</p>
+    <p class="intro">Seven steps for a hand-cut board, with a pin, string, pencil, ruler and set square. Enter your board's size, then press Play. The numbers in every step change to match.</p>
   </div>
 </header>
 
 <main>
-  <section class="wrap size" aria-label="Wheel size">
-    <span class="lbl">Wheel diameter</span>
-    <div class="chips">
-      <button class="chip" type="button" data-d="45" id="d45">45 cm</button>
-      <button class="chip" type="button" data-d="60" id="d60">60 cm</button>
-      <button class="chip" type="button" data-d="80" id="d80">80 cm</button>
-    </div>
-    <label class="other" for="otherD">Other
-      <input id="otherD" type="number" inputmode="decimal" min="20" max="200" step="0.5" placeholder="cm">
-      cm
-    </label>
+  <section class="wrap size" aria-label="Your board">
+    <span class="lbl">Your board</span>
+    <label class="field" for="inL">Longest <input id="inL" type="number" inputmode="decimal" min="20" max="300" step="0.5"> cm</label>
+    <label class="field" for="inS">Shortest <input id="inS" type="number" inputmode="decimal" min="20" max="300" step="0.5"> cm</label>
+    <label class="field" for="inG">String <input id="inG" type="number" inputmode="decimal" min="5" max="150" step="0.5"> cm</label>
+    <p class="hint" id="hint" aria-live="polite"></p>
   </section>
 
   <div class="wrap bench">
@@ -326,6 +315,7 @@ h1 {
     <div class="card">
       <h3>Your numbers <small id="dLabel"></small></h3>
       <dl class="kv" id="kv"></dl>
+      <p class="note">The uneven edge doesn't change the odds. The odds depend only on the angle each section takes up at the axle. Lines that run straight from the axle keep those angles, whatever the edge looks like.</p>
       <p class="note" id="why"></p>
     </div>
     <div class="card">
@@ -337,13 +327,13 @@ h1 {
         <span class="sw" style="--c:#ef4444"></span><span>Flag</span><span class="num">88.2°</span><span class="pct">24.5%</span>
         <span class="sw" style="--c:#3b82f6"></span><span>Language</span><span class="num">88.2°</span><span class="pct">24.5%</span>
       </div>
-      <p class="note">Clockwise from Top. Each quiz section is (360° − 7.2°) ÷ 4 = 88.2°.</p>
+      <p class="note">Clockwise from Top, measured at the axle. Each quiz section is (360° − 7.2°) ÷ 4 = 88.2°.</p>
     </div>
     <div class="card">
       <h3>Before the booth opens</h3>
       <ul>
-        <li>Use a sharp pointer tip. A blunt one can cover most of the thin JACKPOT slice.</li>
-        <li>Give the wheel 10 gentle spins. If it keeps stopping at the same spot, that side is heavier. Tape a coin on the opposite side and test again.</li>
+        <li id="tipNote"></li>
+        <li>A hand-cut board is often heavier on one side. Give the wheel 10 gentle spins. If it keeps stopping at the same spot, tape a coin on the opposite side and test again.</li>
         <li>Every spin must go around at least three full turns.</li>
       </ul>
     </div>
@@ -364,52 +354,73 @@ h1 {
     { lines: ["Language"], color: "#3b82f6", a0: 271.8, a1: 360 },
   ];
   const QUIZ = [0, 1, 3, 4];
+  const ANG = { jr: 176.4, jl: 183.6, sr: 88.2, sl: 271.8 };
 
   const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
   const ease = (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
   const ph = (p, a, b) => ease(clamp((p - a) / (b - a), 0, 1));
   const lerp = (a, b, t) => a + (b - a) * t;
-  const pt = (deg, r = 1) => [r * Math.sin(deg * DEG), -r * Math.cos(deg * DEG)];
+  const pt = (deg, r) => [r * Math.sin(deg * DEG), -r * Math.cos(deg * DEG)];
   const toward = (a, b, t) => [lerp(a[0], b[0], t), lerp(a[1], b[1], t)];
 
-  let D = 60;
-  try { const v = parseFloat(localStorage.getItem("wheelD")); if (v >= 20 && v <= 200) D = v; } catch (e) {}
+  // Board widths and guide circle radius, all in cm. The world unit on the canvas is 1 cm.
+  let L = 116;
+  let SH = 109;
+  let G = 50;
+  const suggestG = (s) => Math.max(10, Math.floor((s / 2 - 3) / 5) * 5);
+  try {
+    const saved = JSON.parse(localStorage.getItem("wheelBoard") || "null");
+    if (saved && saved.L >= 20 && saved.S >= 20 && saved.G >= 5) ({ L, S: SH, G } = saved);
+  } catch (e) {}
 
   function nums() {
-    const R = D / 2;
-    const chord = (deg) => 2 * R * Math.sin((deg * DEG) / 2);
-    return { D, R, A: chord(3.6), B: chord(1.8), Q: chord(88.2), J: chord(7.2), acc: 0.05 / R / DEG };
+    const chord = (deg) => 2 * G * Math.sin((deg * DEG) / 2);
+    return { A: chord(3.6), B: chord(1.8), Q: chord(88.2), J: chord(7.2), acc: 0.05 / G / DEG, tip: Math.min(L, SH) / 2 - 2 };
   }
   const cm1 = (v) => v.toFixed(1) + " cm";
   const cm2 = (v) => v.toFixed(2) + " cm";
   const mm = (v) => (v * 10).toFixed(1) + " mm";
-  const dTxt = (v) => (Number.isInteger(v) ? v : v.toFixed(1)) + " cm";
+  const num = (v) => (Number.isInteger(v) ? String(v) : v.toFixed(1));
   const sw = (c, name) => `<span class="sw" style="--c:${c}"></span>${name}`;
 
-  const DOT = { jr: pt(176.4), jl: pt(183.6), sr: pt(88.2), sl: pt(271.8) };
-  const END = { top: pt(0), right: pt(90), bottom: pt(180), left: pt(270) };
+  // The hand-cut edge: an oval with a slight wobble.
+  function edgeR(deg) {
+    const a = L / 2;
+    const b = SH / 2;
+    const s = Math.sin(deg * DEG);
+    const c = Math.cos(deg * DEG);
+    const r = 1 / Math.sqrt((s * s) / (a * a) + (c * c) / (b * b));
+    return r * (1 + 0.006 * Math.sin(3 * deg * DEG + 0.7) + 0.004 * Math.sin(5 * deg * DEG + 2.1));
+  }
+  const edge = (deg) => pt(deg, edgeR(deg));
 
-  // Camera: centre (x, y) and half-width h, in wheel radii.
-  const HOME = { x: 0, y: 0, h: 1.32 };
-  const BOT = { x: 0, y: 1.01, h: 0.12 };
-  const RGT = { x: 1.01, y: -0.02, h: 0.07 };
-  const LFT = { x: -1.01, y: -0.02, h: 0.07 };
+  // Camera views: centre (x, y) and half-width h, in cm.
+  function cams() {
+    const m = Math.max(L, SH) / 2;
+    return {
+      HOME: { x: 0, y: 0, h: m * 1.28 },
+      BOT: { x: 0, y: G * 1.01, h: G * 0.12 },
+      RGT: { x: G * 1.01, y: -G * 0.02, h: G * 0.07 },
+      LFT: { x: -G * 1.01, y: -G * 0.02, h: G * 0.07 },
+    };
+  }
 
   const STEPS = [
     {
-      title: "Draw the circle",
-      dur: 6000,
-      text: (n) => `Push a pin into the middle of the board. Tie a string to the pin and a pencil to the other end, so the pencil tip sits <b>${cm1(n.R)}</b> from the pin. Keep the string tight and draw one full circle. Leave the pin hole, because it marks the center.`,
+      title: "Draw a guide circle",
+      dur: 8000,
+      text: () => `Push a pin into the axle point. If the board has no axle hole yet, mark the middle of the longest line across the board and the middle of the shortest line, then put the pin halfway between the two marks. Tie a string to the pin and a pencil to the other end, so the pencil tip sits <b>${cm1(G)}</b> from the pin. Draw a full circle. The board's edge is uneven, but this circle is true, so every measurement happens on it.<span class="tip">If the circle comes within 2 cm of the edge anywhere, move the pin or type a shorter string above.</span>`,
       apply(S, p) {
-        S.pin = ph(p, 0, 0.08);
-        S.string = ph(p, 0.08, 0.16) * (1 - ph(p, 0.9, 1));
-        S.circle = ph(p, 0.16, 0.88);
+        S.meas = ph(p, 0, 0.08) * (1 - ph(p, 0.24, 0.3));
+        S.pin = ph(p, 0.2, 0.26);
+        S.string = ph(p, 0.28, 0.34) * (1 - ph(p, 0.92, 1));
+        S.guide = ph(p, 0.34, 0.9);
       },
     },
     {
       title: "Draw a plus sign",
       dur: 5500,
-      text: () => `Draw a straight line through the pin hole, from edge to edge. Use a set square to draw a second line through the pin hole at a right angle to the first. Name the four ends Top, Right, Bottom and Left.`,
+      text: () => `Draw a straight line through the pin, from edge to edge of the board. Use a set square to draw a second line through the pin at a right angle to the first. Name the four ends Top, Right, Bottom and Left.`,
       apply(S, p) {
         S.v = ph(p, 0.04, 0.36);
         S.h = ph(p, 0.44, 0.76);
@@ -420,8 +431,8 @@ h1 {
     {
       title: "Mark the JACKPOT",
       dur: 11000,
-      cam: [[0, HOME], [0.12, BOT], [0.58, BOT], [0.7, HOME], [1, HOME]],
-      text: (n) => `Put the ruler's zero on the Bottom end. Measure <b>${mm(n.A)}</b> to the right and make a dot on the edge. Do the same to the left. Draw a line from each dot to the pin hole. The thin slice between the two lines is the JACKPOT, 7.2° or 2% of the wheel.<span class="tip">Measure both dots twice. They alone set the JACKPOT odds.</span>`,
+      cam: [[0, "HOME"], [0.12, "BOT"], [0.58, "BOT"], [0.7, "HOME"], [1, "HOME"]],
+      text: (n) => `Find where the vertical line crosses the guide circle near Bottom, and put the ruler's zero there. Measure <b>${mm(n.A)}</b> along the guide circle to the right and make a dot on the circle. Do the same to the left. Draw a line from the pin through each dot, out to the board's edge. The thin slice between the two lines is the JACKPOT, 7.2° or 2% of the wheel.<span class="tip">Measure both dots twice. They alone set the JACKPOT odds.</span>`,
       apply(S, p) {
         S.jr = { ruler: ph(p, 0.12, 0.17) * (1 - ph(p, 0.34, 0.38)), br: ph(p, 0.17, 0.29), dot: ph(p, 0.29, 0.33) };
         S.jl = { ruler: ph(p, 0.37, 0.42) * (1 - ph(p, 0.56, 0.6)), br: ph(p, 0.42, 0.52), dot: ph(p, 0.52, 0.56) };
@@ -434,8 +445,8 @@ h1 {
     {
       title: "Move the side lines up",
       dur: 11000,
-      cam: [[0, HOME], [0.1, RGT], [0.34, RGT], [0.42, HOME], [0.5, LFT], [0.74, LFT], [0.84, HOME], [1, HOME]],
-      text: (n) => `Put the ruler's zero on the Right end. Measure <b>${mm(n.B)}</b> upward, toward Top, and make a dot on the edge. Do the same at the Left end, again upward. Draw a line from each dot to the pin hole.`,
+      cam: [[0, "HOME"], [0.1, "RGT"], [0.34, "RGT"], [0.42, "HOME"], [0.5, "LFT"], [0.74, "LFT"], [0.84, "HOME"], [1, "HOME"]],
+      text: (n) => `Find where the horizontal line crosses the guide circle near Right, and put the ruler's zero there. Measure <b>${mm(n.B)}</b> upward along the guide circle, toward Top, and make a dot. Do the same near Left, again upward. Draw a line from the pin through each dot, out to the board's edge.`,
       apply(S, p) {
         S.sr = { ruler: ph(p, 0.1, 0.15) * (1 - ph(p, 0.3, 0.34)), br: ph(p, 0.15, 0.25), dot: ph(p, 0.25, 0.29) };
         S.sl = { ruler: ph(p, 0.5, 0.55) * (1 - ph(p, 0.7, 0.74)), br: ph(p, 0.55, 0.65), dot: ph(p, 0.65, 0.69) };
@@ -443,21 +454,37 @@ h1 {
       },
     },
     {
-      title: "Erase the guide lines",
-      dur: 7000,
-      text: () => `Erase the whole horizontal line. Erase the lower half of the vertical line too, because it runs down the middle of the JACKPOT. Keep the upper half. It is the border between National Anthem and Language.`,
+      title: "Check your work",
+      dur: 9500,
+      cam: [[0, "HOME"], [0.62, "HOME"], [0.72, "BOT"], [0.9, "BOT"], [1, "HOME"]],
+      text: (n) => `Check before you erase or paint. On the guide circle, measure straight across each quiz section, from one line to the next. All four should be <b>${cm2(n.Q)}</b>, within 3 mm. Across the JACKPOT it should be <b>${mm(n.J)}</b>, within 1 mm. If a number is off, redo that line.<span class="tip">Measure on the guide circle only. The uneven edge gives different numbers.</span>`,
       apply(S, p) {
-        S.hl = ph(p, 0, 0.12) * (1 - ph(p, 0.8, 0.9));
-        S.eraseH = ph(p, 0.16, 0.48);
+        for (let k = 0; k < 4; k++) {
+          S.chord[k] = ph(p, 0.04 + k * 0.14, 0.14 + k * 0.14);
+          S.chordLbl[k] = ph(p, 0.1 + k * 0.14, 0.16 + k * 0.14);
+        }
+        S.jChord = ph(p, 0.72, 0.8);
+        S.jChordLbl = ph(p, 0.78, 0.84) * (1 - ph(p, 0.9, 0.95));
+      },
+    },
+    {
+      title: "Erase the guide lines",
+      dur: 8000,
+      text: () => `Erase the whole horizontal line. Erase the lower half of the vertical line too, because it runs down the middle of the JACKPOT. Then erase the guide circle, or leave it faint for the paint to cover. Keep the upper half of the vertical line. It is the border between National Anthem and Language.`,
+      apply(S, p) {
+        S.chordFade = ph(p, 0, 0.1);
+        S.hl = ph(p, 0.04, 0.14) * (1 - ph(p, 0.84, 0.92));
+        S.eraseH = ph(p, 0.16, 0.42);
         S.sq = 1 - ph(p, 0.16, 0.22);
-        S.eraseV = ph(p, 0.52, 0.76);
-        S.keep = ph(p, 0.8, 0.92);
+        S.eraseV = ph(p, 0.46, 0.64);
+        S.eraseC = ph(p, 0.68, 0.82);
+        S.keep = ph(p, 0.84, 0.94);
       },
     },
     {
       title: "Paint and label",
       dur: 7500,
-      text: () => `Paint the five sections in the same order and colors as the screen. Clockwise from Top they are ${sw("#a855f7", "National Anthem")}, ${sw("#10b981", "Location")}, ${sw("#f59e0b", "JACKPOT")}, ${sw("#ef4444", "Flag")} and ${sw("#3b82f6", "Language")}. Keep the border lines 2 mm wide or thinner, so they don't eat into the JACKPOT.`,
+      text: () => `Paint the five sections in the same order and colors as the screen, out to the board's edge. Clockwise from Top they are ${sw("#a855f7", "National Anthem")}, ${sw("#10b981", "Location")}, ${sw("#f59e0b", "JACKPOT")}, ${sw("#ef4444", "Flag")} and ${sw("#3b82f6", "Language")}. Keep the border lines 2 mm wide or thinner, so they don't eat into the JACKPOT.`,
       apply(S, p) {
         S.ends = 1 - ph(p, 0, 0.1);
         S.keep = 1 - ph(p, 0, 0.1);
@@ -468,32 +495,18 @@ h1 {
         S.white = ph(p, 0.76, 0.92);
       },
     },
-    {
-      title: "Check your work",
-      dur: 9500,
-      cam: [[0, HOME], [0.62, HOME], [0.72, BOT], [0.9, BOT], [1, HOME]],
-      text: (n) => `Measure straight across each quiz section, from one edge corner to the other. All four should be <b>${cm2(n.Q)}</b>, within 3 mm. Then measure across the JACKPOT at the edge. It should be <b>${mm(n.J)}</b>, within 1 mm. If a number is off, redo that line.`,
-      apply(S, p) {
-        for (let k = 0; k < 4; k++) {
-          S.chord[k] = ph(p, 0.04 + k * 0.14, 0.14 + k * 0.14);
-          S.chordLbl[k] = ph(p, 0.1 + k * 0.14, 0.16 + k * 0.14);
-        }
-        S.jChord = ph(p, 0.72, 0.8);
-        S.jChordLbl = ph(p, 0.78, 0.84) * (1 - ph(p, 0.9, 0.95));
-      },
-    },
   ];
   const LAST = STEPS.length - 1;
 
   function blank() {
     const r = () => ({ ruler: 0, br: 0, dot: 0 });
     return {
-      pin: 0, string: 0, circle: 0, v: 0, h: 0, sq: 0, ends: 0, bottomLbl: 1,
+      meas: 0, pin: 0, string: 0, guide: 0, v: 0, h: 0, sq: 0, ends: 0, bottomLbl: 1,
       jr: r(), jl: r(), jLine: 0, jTint: 0, jLbl: 0,
       sr: r(), sl: r(), sLine: 0,
-      hl: 0, eraseH: 0, eraseV: 0, keep: 0,
+      chord: [0, 0, 0, 0], chordLbl: [0, 0, 0, 0], jChord: 0, jChordLbl: 0, chordFade: 0,
+      hl: 0, eraseH: 0, eraseV: 0, eraseC: 0, keep: 0,
       paint: [0, 0, 0, 0, 0], lbl: [0, 0, 0, 0, 0], white: 0,
-      chord: [0, 0, 0, 0], chordLbl: [0, 0, 0, 0], jChord: 0, jChordLbl: 0,
     };
   }
   function stateAt(k, p) {
@@ -513,16 +526,16 @@ h1 {
     const m = h / a.h;
     return { x: fx + (a.x - fx) * m, y: fy + (a.y - fy) * m, h };
   }
-  function camAt(keys, p) {
-    if (!keys) return HOME;
+  function camAt(keys, p, C) {
+    if (!keys) return C.HOME;
     for (let i = 1; i < keys.length; i++) {
       if (p <= keys[i][0]) {
         const [p0, c0] = keys[i - 1];
         const [p1, c1] = keys[i];
-        return camLerp(c0, c1, ease(clamp((p - p0) / (p1 - p0 || 1), 0, 1)));
+        return camLerp(C[c0], C[c1], ease(clamp((p - p0) / (p1 - p0 || 1), 0, 1)));
       }
     }
-    return keys[keys.length - 1][1];
+    return C[keys[keys.length - 1][1]];
   }
 
   // ---------------------------------------------------------------------------
@@ -538,8 +551,9 @@ h1 {
     const cs = getComputedStyle(document.documentElement);
     const g = (name) => cs.getPropertyValue(name).trim();
     T = {
-      board: g("--board"), ink: g("--board-ink"), pencil: g("--pencil"), ruler: g("--ruler"),
-      rulerInk: g("--ruler-ink"), mark: g("--mark"), keep: g("--keep"), jp: g("--jp-ink"),
+      table: g("--table"), tableInk: g("--table-ink"), jp: g("--jp-ink"),
+      board: g("--board"), cut: g("--cut"), ink: g("--board-ink"), pencil: g("--pencil"),
+      ruler: g("--ruler"), rulerInk: g("--ruler-ink"), mark: g("--mark"), keep: g("--keep"),
       font: g("--f-body"), head: g("--f-head"),
     };
   }
@@ -554,11 +568,11 @@ h1 {
     ctx.closePath();
   }
 
-  function paintScene(S, cam) {
+  function paintScene(S, cam, C) {
     const n = nums();
     const s = W / 2 / cam.h;
     const fs = clamp(W / 38, 11, 15);
-    const zoomA = clamp((cam.h - 0.5) / 0.5, 0, 1);
+    const zoomA = clamp((cam.h / C.HOME.h - 0.38) / 0.38, 0, 1);
     const X = (x) => W / 2 + (x - cam.x) * s;
     const Y = (y) => W / 2 + (y - cam.y) * s;
     const world = () => ctx.setTransform(dpr * s, 0, 0, dpr * s, dpr * (W / 2 - cam.x * s), dpr * (W / 2 - cam.y * s));
@@ -579,15 +593,36 @@ h1 {
       line(a, b, 1.7, T.pencil, 1 - S.white);
       line(a, b, 2.4, "#ffffff", S.white);
     };
-    const wedge = (g, color, alpha) => {
+    const boardPath = () => {
+      ctx.beginPath();
+      for (let d = 0; d < 360; d += 2) {
+        const q = edge(d);
+        if (d) ctx.lineTo(q[0], q[1]); else ctx.moveTo(q[0], q[1]);
+      }
+      ctx.closePath();
+    };
+    const wedge = (a0, a1, color, alpha) => {
       if (alpha <= 0) return;
+      const steps = Math.max(2, Math.ceil(a1 - a0));
       ctx.globalAlpha = alpha;
       ctx.fillStyle = color;
       ctx.beginPath();
       ctx.moveTo(0, 0);
-      ctx.arc(0, 0, 1, (g.a0 - 90) * DEG, (g.a1 - 90) * DEG);
+      for (let i = 0; i <= steps; i++) {
+        const q = edge(lerp(a0, a1, i / steps));
+        ctx.lineTo(q[0], q[1]);
+      }
       ctx.closePath();
       ctx.fill();
+    };
+    const arcG = (t, w, color, alpha) => {
+      if (alpha <= 0 || t <= 0) return;
+      ctx.globalAlpha = alpha;
+      ctx.strokeStyle = color;
+      ctx.lineWidth = px(w);
+      ctx.beginPath();
+      ctx.arc(0, 0, G, -Math.PI / 2, -Math.PI / 2 + t * 2 * Math.PI);
+      ctx.stroke();
     };
     const pillSize = (str, size) => {
       ctx.font = `700 ${size}px ${T.font}`;
@@ -629,7 +664,7 @@ h1 {
       const u = [dx / len, dy / len];
       let nv = [-u[1], u[0]];
       if (nv[0] * out[0] + nv[1] * out[1] < 0) nv = [-nv[0], -nv[1]];
-      const unit = 0.1 / n.R;
+      const unit = 0.1;
       const w = px(36);
       const total = len * 1.5;
       const P = (along, off) => [o[0] + u[0] * along + nv[0] * off, o[1] + u[1] * along + nv[1] * off];
@@ -647,8 +682,8 @@ h1 {
       ctx.lineWidth = px(1);
       ctx.stroke();
       for (let i = 0; i * unit <= total; i++) {
-        const L = i % 10 === 0 ? 0.5 : i % 5 === 0 ? 0.36 : 0.22;
-        line(P(i * unit, 0), P(i * unit, w * L), 1, T.rulerInk, a);
+        const L2 = i % 10 === 0 ? 0.5 : i % 5 === 0 ? 0.36 : 0.22;
+        line(P(i * unit, 0), P(i * unit, w * L2), 1, T.rulerInk, a);
       }
       if (st.br > 0) line(P(0, 0), P(len * st.br, 0), 3.5, T.mark, a);
 
@@ -680,37 +715,59 @@ h1 {
       ctx.restore();
     }
 
-    // Board
+    // Table and board
     screen();
     ctx.globalAlpha = 1;
-    ctx.fillStyle = T.board;
+    ctx.fillStyle = T.table;
     ctx.fillRect(0, 0, W, W);
     world();
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
+    boardPath();
+    ctx.fillStyle = T.board;
+    ctx.fill();
 
     // Paint
-    wedge(SEGS[2], "#f59e0b", 0.3 * S.jTint * (1 - S.paint[2]));
-    SEGS.forEach((g, i) => wedge(g, g.color, S.paint[i]));
+    wedge(176.4, 183.6, "#f59e0b", 0.3 * S.jTint * (1 - S.paint[2]));
+    SEGS.forEach((g, i) => wedge(g.a0, g.a1, g.color, S.paint[i]));
 
-    // Rim
-    if (S.circle > 0) {
-      ctx.globalAlpha = 1;
-      ctx.strokeStyle = T.pencil;
-      ctx.lineWidth = px(1.8);
-      ctx.beginPath();
-      ctx.arc(0, 0, 1, -Math.PI / 2, -Math.PI / 2 + S.circle * 2 * Math.PI);
-      ctx.stroke();
+    // Cut edge
+    boardPath();
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = T.cut;
+    ctx.lineWidth = px(2);
+    ctx.stroke();
+
+    // Longest and shortest lines across, for finding the middle
+    const across = [[edge(270), edge(90)], [edge(0), edge(180)]];
+    if (S.meas > 0) {
+      ctx.setLineDash([px(8), px(6)]);
+      across.forEach(([a, b]) => line(a, b, 1.6, T.rulerInk, S.meas));
+      ctx.setLineDash([]);
+      const q = px(8);
+      const m0 = toward(across[0][0], across[0][1], 0.5);
+      const m1 = toward(across[1][0], across[1][1], 0.5);
+      line([m0[0], m0[1] - q], [m0[0], m0[1] + q], 2.2, T.mark, S.meas);
+      line([m1[0] - q, m1[1]], [m1[0] + q, m1[1]], 2.2, T.mark, S.meas);
     }
 
-    // Guide lines (visible parts)
-    const vEnd = -1 + 2 * S.v;
-    const upper = S.v > 0 ? [[0, -1], [0, Math.min(0, vEnd)]] : null;
-    const low0 = Math.max(0, S.eraseV);
-    const lower = vEnd > low0 ? [[0, low0], [0, vEnd]] : null;
-    const hEnd = -1 + 2 * S.h;
-    const hStart = -1 + 2 * S.eraseH;
-    const horiz = S.h > 0 && hEnd > hStart ? [[hStart, 0], [hEnd, 0]] : null;
+    // Guide circle
+    const gA = 1 - S.eraseC;
+    arcG(S.guide, 12, T.mark, 0.25 * S.hl * gA);
+    arcG(S.guide, 1.5, T.pencil, gA);
+
+    // Plus sign (visible parts)
+    const yT = -edgeR(0);
+    const yB = edgeR(180);
+    const xL = -edgeR(270);
+    const xR = edgeR(90);
+    const vY = lerp(yT, yB, S.v);
+    const upper = S.v > 0 ? [[0, yT], [0, Math.min(0, vY)]] : null;
+    const low0 = lerp(0, yB, S.eraseV);
+    const lower = vY > low0 ? [[0, low0], [0, vY]] : null;
+    const hX = lerp(xL, xR, S.h);
+    const h0 = lerp(xL, xR, S.eraseH);
+    const horiz = S.h > 0 && hX > h0 ? [[h0, 0], [hX, 0]] : null;
 
     if (S.hl > 0) {
       if (horiz) line(horiz[0], horiz[1], 12, T.mark, 0.25 * S.hl);
@@ -720,14 +777,10 @@ h1 {
     if (lower) line(lower[0], lower[1], 1.7, T.pencil, 1);
     if (upper) border(upper[0], upper[1]);
 
-    if (S.jLine > 0) {
-      border(DOT.jr, toward(DOT.jr, [0, 0], S.jLine));
-      border(DOT.jl, toward(DOT.jl, [0, 0], S.jLine));
-    }
-    if (S.sLine > 0) {
-      border(DOT.sr, toward(DOT.sr, [0, 0], S.sLine));
-      border(DOT.sl, toward(DOT.sl, [0, 0], S.sLine));
-    }
+    // Section lines, from the pin out to the edge
+    const ray = (deg, t) => border([0, 0], toward([0, 0], edge(deg), t));
+    if (S.jLine > 0) { ray(ANG.jr, S.jLine); ray(ANG.jl, S.jLine); }
+    if (S.sLine > 0) { ray(ANG.sr, S.sLine); ray(ANG.sl, S.sLine); }
 
     // Right-angle mark
     if (S.sq > 0) {
@@ -743,7 +796,7 @@ h1 {
     }
 
     // String and pencil
-    const tip = pt(360 * S.circle);
+    const tip = pt(360 * S.guide, G);
     if (S.string > 0) {
       line([0, 0], tip, 1.3, T.rulerInk, S.string);
       ctx.globalAlpha = S.string;
@@ -762,38 +815,40 @@ h1 {
       ctx.fill();
     }
 
-    // Rulers
-    ruler(END.bottom, DOT.jr, [0, 1], S.jr, mm(n.A));
-    ruler(END.bottom, DOT.jl, [0, 1], S.jl, mm(n.A));
-    ruler(END.right, DOT.sr, [1, 0], S.sr, mm(n.B));
-    ruler(END.left, DOT.sl, [-1, 0], S.sl, mm(n.B));
+    // Rulers, laid on the guide circle
+    ruler(pt(180, G), pt(ANG.jr, G), [0, 1], S.jr, mm(n.A));
+    ruler(pt(180, G), pt(ANG.jl, G), [0, 1], S.jl, mm(n.A));
+    ruler(pt(90, G), pt(ANG.sr, G), [1, 0], S.sr, mm(n.B));
+    ruler(pt(270, G), pt(ANG.sl, G), [-1, 0], S.sl, mm(n.B));
 
     // Dots
-    const dot = (q, a) => {
+    const dot = (deg, a) => {
       if (a <= 0 || S.white >= 1) return;
+      const q = pt(deg, G);
       ctx.globalAlpha = a * (1 - S.white);
       ctx.fillStyle = T.mark;
       ctx.beginPath();
       ctx.arc(q[0], q[1], px(4.6 * (0.6 + 0.4 * a)), 0, 2 * Math.PI);
       ctx.fill();
     };
-    dot(DOT.jr, S.jr.dot);
-    dot(DOT.jl, S.jl.dot);
-    dot(DOT.sr, S.sr.dot);
-    dot(DOT.sl, S.sl.dot);
+    dot(ANG.jr, S.jr.dot);
+    dot(ANG.jl, S.jl.dot);
+    dot(ANG.sr, S.sr.dot);
+    dot(ANG.sl, S.sl.dot);
 
-    // Check chords
+    // Check chords, on the guide circle
+    const cA = 1 - S.chordFade;
     QUIZ.forEach((si, k) => {
       const c = S.chord[k];
-      if (c <= 0) return;
-      const a = pt(SEGS[si].a0);
-      const b = pt(SEGS[si].a1);
+      if (c <= 0 || cA <= 0) return;
+      const a = pt(SEGS[si].a0, G);
+      const b = pt(SEGS[si].a1, G);
       const e = toward(a, b, c);
-      line(a, e, 5, "#ffffff", 0.85);
+      line(a, e, 5, "#ffffff", 0.85 * cA);
       ctx.setLineDash([px(7), px(5)]);
-      line(a, e, 2, T.ink, 1);
+      line(a, e, 2, T.ink, cA);
       ctx.setLineDash([]);
-      ctx.globalAlpha = 1;
+      ctx.globalAlpha = cA;
       ctx.fillStyle = T.ink;
       [a, c >= 1 ? b : null].forEach((q) => {
         if (!q) return;
@@ -802,39 +857,46 @@ h1 {
         ctx.fill();
       });
     });
-    if (S.jChord > 0) {
-      const e = toward(DOT.jr, DOT.jl, S.jChord);
-      line(DOT.jr, e, 5, "#ffffff", 0.85);
-      line(DOT.jr, e, 2, T.ink, 1);
+    if (S.jChord > 0 && cA > 0) {
+      const a = pt(ANG.jr, G);
+      const e = toward(a, pt(ANG.jl, G), S.jChord);
+      line(a, e, 5, "#ffffff", 0.85 * cA);
+      line(a, e, 2, T.ink, cA);
     }
 
     // Eraser
     screen();
-    if (S.eraseH > 0 && S.eraseH < 1) eraser(X(-1 + 2 * S.eraseH), Y(0));
-    if (S.eraseV > 0 && S.eraseV < 1) eraser(X(0), Y(S.eraseV));
+    if (S.eraseH > 0 && S.eraseH < 1) eraser(X(lerp(xL, xR, S.eraseH)), Y(0));
+    if (S.eraseV > 0 && S.eraseV < 1) eraser(X(0), Y(lerp(0, yB, S.eraseV)));
 
     // Labels
+    if (S.meas > 0) {
+      const a = toward(across[0][0], across[0][1], 0.78);
+      const b = toward(across[1][0], across[1][1], 0.22);
+      pill(`${num(L)} cm`, X(a[0]), Y(a[1]), "#ffffff", T.ink, S.meas);
+      pill(`${num(SH)} cm`, X(b[0]), Y(b[1]), "#ffffff", T.ink, S.meas);
+    }
     if (S.string > 0) {
       const m = toward([0, 0], tip, 0.5);
-      pill(cm1(n.R), X(m[0]), Y(m[1]), "#ffffff", T.ink, S.string);
+      pill(cm1(G), X(m[0]), Y(m[1]), "#ffffff", T.ink, S.string);
     }
     const ea = S.ends * zoomA;
-    label("Top", X(END.top[0]), Y(END.top[1]) - 13, T.ink, ea);
-    label("Right", X(END.right[0]) + 7, Y(END.right[1]), T.ink, ea, "left");
-    label("Left", X(END.left[0]) - 7, Y(END.left[1]), T.ink, ea, "right");
-    label("Bottom", X(END.bottom[0]), Y(END.bottom[1]) + 14, T.ink, ea * S.bottomLbl);
-    label("JACKPOT 7.2°", X(0), Y(1) + 15, T.jp, S.jLbl * zoomA);
+    label("Top", X(0), Y(yT) - 13, T.tableInk, ea);
+    label("Right", X(xR) + 7, Y(0), T.tableInk, ea, "left");
+    label("Left", X(xL) - 7, Y(0), T.tableInk, ea, "right");
+    label("Bottom", X(0), Y(yB) + 14, T.tableInk, ea * S.bottomLbl);
+    label("JACKPOT 7.2°", X(0), Y(yB) + 15, T.jp, S.jLbl * zoomA);
 
     if (S.keep > 0) {
       const z = pillSize("Keep", fs);
-      pill("Keep", X(0) + 9 + z.w / 2, Y(-0.55), T.keep, "#ffffff", S.keep);
+      pill("Keep", X(0) + 9 + z.w / 2, Y(-0.55 * G), T.keep, "#ffffff", S.keep);
     }
 
     QUIZ.forEach((si) => {
       const a = S.lbl[si] * zoomA;
       if (a <= 0) return;
       const g = SEGS[si];
-      const c = pt((g.a0 + g.a1) / 2, 0.4);
+      const c = pt((g.a0 + g.a1) / 2, 0.42 * G);
       const rows = g.lines.concat(["88.2°"]);
       const lh = fs * 1.2;
       rows.forEach((row, i) => {
@@ -853,12 +915,12 @@ h1 {
     });
 
     QUIZ.forEach((si, k) => {
-      const a = S.chordLbl[k];
+      const a = S.chordLbl[k] * cA;
       if (a <= 0) return;
-      const m = toward(pt(SEGS[si].a0), pt(SEGS[si].a1), 0.5);
+      const m = toward(pt(SEGS[si].a0, G), pt(SEGS[si].a1, G), 0.5);
       pill(cm2(n.Q), X(m[0]), Y(m[1]), "#ffffff", T.ink, a);
     });
-    if (S.jChordLbl > 0) pill(mm(n.J), X(0), Y(1) + 26, "#ffffff", T.ink, S.jChordLbl);
+    if (S.jChordLbl > 0) pill(mm(n.J), X(0), Y(G) + 26, "#ffffff", T.ink, S.jChordLbl * cA);
 
     ctx.globalAlpha = 1;
   }
@@ -884,16 +946,16 @@ h1 {
 
   function where() {
     if (cur < 0) return { k: -1, p: 1 };
-    const d = STEPS[cur].dur;
-    return { k: cur, p: REDUCED ? 1 : clamp(t / d, 0, 1) };
+    return { k: cur, p: REDUCED ? 1 : clamp(t / STEPS[cur].dur, 0, 1) };
   }
 
   function draw() {
     if (!W) return;
     const { k, p } = where();
-    const S = k < 0 ? stateAt(5, 1) : stateAt(k, p);
-    const cam = k < 0 ? HOME : camAt(STEPS[k].cam, p);
-    paintScene(S, cam);
+    const C = cams();
+    const S = k < 0 ? stateAt(LAST, 1) : stateAt(k, p);
+    const cam = k < 0 ? C.HOME : camAt(STEPS[k].cam, p, C);
+    paintScene(S, cam, C);
   }
 
   function frame(now) {
@@ -939,24 +1001,34 @@ h1 {
   const bars = [...progEl.querySelectorAll("i")];
   stepBtns.forEach((b) => b.addEventListener("click", () => go(+b.dataset.i)));
 
+  let uiKey = "";
   function fillText() {
     const n = nums();
     stepBtns.forEach((b, i) => { b.querySelector(".d").innerHTML = STEPS[i].text(n); });
-    document.getElementById("dLabel").textContent = dTxt(n.D) + " wheel";
+    document.getElementById("dLabel").textContent = `${num(L)} × ${num(SH)} cm board`;
     const rows = [
-      ["String, pin to pencil tip", cm1(n.R)],
+      ["String for the guide circle", cm1(G)],
       ["JACKPOT dots, each side of Bottom", mm(n.A)],
       ["Side dots, up from Right and Left", mm(n.B)],
-      ["Across one quiz section", cm2(n.Q)],
-      ["Across the JACKPOT", mm(n.J)],
+      ["Across one quiz section, on the guide circle", cm2(n.Q)],
+      ["Across the JACKPOT, on the guide circle", mm(n.J)],
+      ["Pointer tip, at most this far from the axle", cm1(n.tip)],
     ];
     document.getElementById("kv").innerHTML = rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("");
     document.getElementById("why").textContent =
-      `Why a ruler and not a protractor? A school protractor reads to about 1°, which could make the JACKPOT anything from 1.7% to 2.3%. On this wheel, a ruler dot 0.5 mm off moves a line by only about ${n.acc.toFixed(1)}°.`;
+      `Use a ruler, not a protractor. A school protractor reads to about 1°, which could make the JACKPOT anything from 1.7% to 2.3%. On this guide circle, a ruler dot 0.5 mm off moves a line by only about ${n.acc.toFixed(1)}°.`;
+    document.getElementById("tipNote").textContent =
+      `Set the pointer tip no more than ${cm1(n.tip)} from the axle, so it points at paint even where the board is narrowest. Make the tip sharp, because a blunt one can cover most of the JACKPOT slice.`;
+    const hint = document.getElementById("hint");
+    const best = suggestG(Math.min(L, SH));
+    const tooLong = G > Math.min(L, SH) / 2 - 2;
+    hint.classList.toggle("warn", tooLong);
+    hint.textContent = tooLong
+      ? `This string is too long. The guide circle would come within 2 cm of the edge. Use ${best} cm or less.`
+      : `The suggested string for this board is ${best} cm. A longer string makes the dots more accurate, but the circle must stay 2 cm or more inside the edge.`;
     uiKey = "";
   }
 
-  let uiKey = "";
   function updateUI() {
     const { k, p } = where();
     stepBtns.forEach((b, i) => {
@@ -976,7 +1048,6 @@ h1 {
     nextBtn.disabled = k >= LAST;
     replayBtn.disabled = k < 0;
     if (k < 0) primary.textContent = "▶ Play";
-    else if (playing && !done) primary.textContent = "❚❚ Pause";
     else if (playing) primary.textContent = "❚❚ Pause";
     else if (!done) primary.textContent = "▶ Resume";
     else if (k < LAST) primary.textContent = "Next step ▶";
@@ -1010,25 +1081,37 @@ h1 {
     else if (e.key === " " && e.target === document.body) { e.preventDefault(); primary.click(); }
   });
 
-  // Wheel size
-  const chips = [...document.querySelectorAll(".chip")];
-  const otherIn = document.getElementById("otherD");
-  function setD(v, fromInput) {
-    D = v;
-    chips.forEach((c) => c.setAttribute("aria-pressed", String(!fromInput && +c.dataset.d === v)));
-    if (!fromInput) otherIn.value = "";
-    try { localStorage.setItem("wheelD", String(v)); } catch (e) {}
+  // Board size
+  const inL = document.getElementById("inL");
+  const inS = document.getElementById("inS");
+  const inG = document.getElementById("inG");
+  inL.value = L;
+  inS.value = SH;
+  inG.value = G;
+  function changed() {
+    try { localStorage.setItem("wheelBoard", JSON.stringify({ L, S: SH, G })); } catch (e) {}
     fillText();
     updateUI();
     draw();
   }
-  chips.forEach((c) => c.addEventListener("click", () => setD(+c.dataset.d, false)));
-  otherIn.addEventListener("input", () => {
-    const v = parseFloat(otherIn.value);
-    if (v >= 20 && v <= 200) setD(v, true);
+  function onBoard() {
+    const l = parseFloat(inL.value);
+    const s = parseFloat(inS.value);
+    if (!(l >= 20 && l <= 300 && s >= 20 && s <= 300)) return;
+    L = l;
+    SH = s;
+    G = suggestG(Math.min(l, s));
+    inG.value = G;
+    changed();
+  }
+  inL.addEventListener("input", onBoard);
+  inS.addEventListener("input", onBoard);
+  inG.addEventListener("input", () => {
+    const g = parseFloat(inG.value);
+    if (!(g >= 5 && g <= 150)) return;
+    G = g;
+    changed();
   });
-  if ([45, 60, 80].includes(D)) chips.forEach((c) => c.setAttribute("aria-pressed", String(+c.dataset.d === D)));
-  else { chips.forEach((c) => c.setAttribute("aria-pressed", "false")); otherIn.value = D; }
 
   // Canvas size and theme
   function resize() {
