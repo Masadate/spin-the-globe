@@ -3,8 +3,11 @@
 Usage: python publish.py "what changed"
 
 Regenerates the offline files, clones the repo into a temp folder, mirrors
-app/ to the site root (plus tools/ and README.md), commits, and pushes.
+app/ to the site root (plus guides/, tools/ and README.md), commits, and pushes.
 The Drive folder stays the source of truth and never holds a .git folder.
+
+guides/ holds team pages, such as the wheel marking guide. They sit outside
+app/, so they never change the quiz's build stamp or its offline cache.
 """
 import shutil
 import subprocess
@@ -28,6 +31,7 @@ def mirror(site):
         if p.name != ".git":
             shutil.rmtree(p) if p.is_dir() else p.unlink()
     shutil.copytree(ROOT / "app", site, dirs_exist_ok=True)
+    shutil.copytree(ROOT / "guides", site / "guides", dirs_exist_ok=True)
     for pattern in TOOL_FILES:
         for f in (ROOT / "tools").glob(pattern):
             dest = site / "tools" / f.relative_to(ROOT / "tools")
