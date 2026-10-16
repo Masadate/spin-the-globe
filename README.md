@@ -41,7 +41,7 @@ It runs in Safari 15+ or Chrome on a Mac (macOS 12 Monterey or newer). It needs 
 
 - Each player gets 5 turns. A JACKPOT uses one of them.
 - The app grades answers automatically.
-- The result screen tells staff what to hand over.
+- The result screen shows the player's tier. Staff choose the prize.
 - A second JACKPOT for the same player shows "spin once more". Each player can win one grand prize at most.
 
 ### Prize rule
@@ -50,7 +50,7 @@ The prize is the higher of the quiz tier and the jackpot tier.
 
 | Result | Prize |
 |---|---|
-| 0–1 correct | Consolation (drink + candy) |
+| 0–1 correct | Consolation |
 | 2–3 correct | Bronze |
 | 4–5 correct | Silver |
 | JACKPOT, stock left | Grand prize |

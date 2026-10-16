@@ -124,6 +124,7 @@ async function run(engineName) {
   check("five turns end on result screen", (await screen()) === "scr-result");
   check("result lists 5 turns", (await page.locator("#resultTurns span").count()) === 5);
   check("4 correct gives silver", (await tier()).includes("SILVER"), await tier());
+  check("result screen leaves the prize to staff", !(await page.textContent("#scr-result")).includes("HAND OVER"));
   await shot("06-result");
 
   // Player 2: two right answers earn bronze. Player 3: one right answer earns the consolation prize.

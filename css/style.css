@@ -369,11 +369,6 @@ kbd {
 #resultTier small { display: block; font-family: var(--f-head); font-size: 1.6rem; color: rgba(42, 23, 20, 0.75); }
 #resultTurns { display: flex; gap: 1rem; font-size: 1.5rem; }
 #resultTurns span { padding: 0.4rem 1rem; border-radius: 0.7rem; background: var(--paper); border: 1px solid var(--line); box-shadow: var(--shadow); }
-#resultGive {
-  font-size: 1.6rem; padding: 0.8rem 1.6rem; border-radius: 1rem;
-  background: var(--paper); border: 2px dashed var(--red); color: var(--ink);
-}
-#resultGive small { display: block; font-size: 1rem; letter-spacing: 0.1em; }
 
 /* Admin */
 
@@ -492,7 +487,6 @@ kbd {
   #resultMedal { width: 10rem; height: 10rem; font-size: 4.5rem; }
   #resultTier { font-size: 2.4rem; }
   #resultTurns { flex-wrap: wrap; justify-content: center; font-size: 1.1rem; }
-  #resultGive { font-size: 1.2rem; }
 
   .admin-grid { grid-template-columns: 1fr; }
 }

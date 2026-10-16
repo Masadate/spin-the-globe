@@ -649,7 +649,6 @@
       var mark = t.seg === "jackpot" ? "🎰" : t.correct ? "⭕" : "❌";
       return "<span>" + s.icon + " " + s.en + " " + mark + "</span>";
     }).join("");
-    $("#resultGive").innerHTML = "<small>STAFF · HAND OVER</small>" + P.give;
     sfx(rec.tier === "consolation" ? "select" : "correct");
     show("result");
     clearTimeout(game.idle);

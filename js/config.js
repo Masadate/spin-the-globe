@@ -21,12 +21,12 @@ window.CONFIG = {
   // Seconds of inactivity before the result screen returns to the title screen.
   resultIdleSeconds: 45,
 
-  // What staff hand over at each tier. Every player also gets a drink.
+  // Name and color of each prize tier. Staff choose the actual prize.
   prizes: {
-    consolation: { en: "Thanks for playing!", ja: "参加賞", give: "Drink + 1 candy", color: "#8fa3bf" },
-    bronze: { en: "BRONZE", ja: "銅賞", give: "Drink + candy + small snack or sticker", color: "#d08a4a" },
-    silver: { en: "SILVER", ja: "銀賞", give: "Drink + candy + larger snack or character good", color: "#cfd8e3" },
-    grand: { en: "GRAND PRIZE", ja: "特賞", give: "Drink + international snack gift box", color: "#ffc93c" },
+    consolation: { en: "Thanks for playing!", ja: "参加賞", color: "#8fa3bf" },
+    bronze: { en: "BRONZE", ja: "銅賞", color: "#d08a4a" },
+    silver: { en: "SILVER", ja: "銀賞", color: "#cfd8e3" },
+    grand: { en: "GRAND PRIZE", ja: "特賞", color: "#ffc93c" },
   },
 
   segments: {
