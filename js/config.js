@@ -34,7 +34,7 @@ window.CONFIG = {
   segments: {
     song: { key: "1", icon: "🎵", en: "National Anthem", ja: "国歌", color: "#a855f7", prompt: "Whose national anthem is this?", promptJa: "どこの国の国歌？" },
     map: { key: "2", icon: "🗺️", en: "Location", ja: "地図", color: "#10b981", prompt: "Which country is highlighted?", promptJa: "この国はどこ？" },
-    flag: { key: "3", icon: "🚩", en: "Flag", ja: "国旗", color: "#ef4444", prompt: "Whose flag is this?", promptJa: "どこの国の国旗？" },
+    flag: { key: "3", icon: "🎌", en: "Flag", ja: "国旗", color: "#ef4444", prompt: "Whose flag is this?", promptJa: "どこの国の国旗？" },
     lang: { key: "4", icon: "🗣️", en: "Language", ja: "言語", color: "#3b82f6", prompt: "Where would you hear this language?", promptJa: "どこの国の言葉？" },
     jackpot: { key: "5", icon: "🎰", en: "JACKPOT", ja: "大当たり", color: "#f59e0b" },
   },
