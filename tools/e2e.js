@@ -133,9 +133,15 @@ async function run(engineName) {
   check("2 correct gives bronze", (await tier()).includes("BRONZE"), await tier());
   await page.keyboard.press("Space");
   for (const right of [true, false, false, false, false]) await flagTurn(right);
-  check("1 correct gives the consolation prize", !/BRONZE|SILVER|GRAND/.test(await tier()), await tier());
+  check("1 correct gives the consolation prize", !/BRONZE|SILVER|GOLD|GRAND/.test(await tier()), await tier());
 
-  // Player 4: anthem (audio), jackpot, a second jackpot (re-spin), language, then two flags.
+  // Player 4: five right answers earn gold.
+  await page.keyboard.press("Space");
+  for (let i = 0; i < 5; i++) await flagTurn(true);
+  check("5 correct gives gold", (await tier()).includes("GOLD"), await tier());
+  await shot("06b-result-gold");
+
+  // Player 5: anthem (audio), language, then a jackpot that ends the game.
   await page.keyboard.press("Space");
   await page.keyboard.press("Digit1");
   await sleep(2500);
@@ -148,17 +154,6 @@ async function run(engineName) {
   await shot("07-anthem");
   await page.keyboard.press("KeyD");
   await page.keyboard.press("Space");
-  const before = await stockText();
-  check("pool starts at 5 grand prizes", before.includes("5"), before.trim());
-  await page.keyboard.press("Digit5");
-  await sleep(600);
-  check("key 5 shows jackpot", (await screen()) === "scr-jackpot");
-  await shot("08-jackpot");
-  check("jackpot takes one grand prize", (await stockText()) !== before, `${before.trim()} → ${(await stockText()).trim()}`);
-  await page.keyboard.press("Space");
-  await page.keyboard.press("Digit5");
-  await sleep(300);
-  check("second jackpot asks for a re-spin", (await screen()) === "scr-turn" && (await page.isVisible("#toast.show")));
   await page.keyboard.press("Digit4");
   await sleep(2000);
   const lang = await page.evaluate(() => {
@@ -169,13 +164,20 @@ async function run(engineName) {
   await shot("09-language");
   await page.keyboard.press("KeyA");
   await page.keyboard.press("Space");
-  await flagTurn(false);
-  await flagTurn(false);
-  check("player 4 finishes after 5 turns", (await screen()) === "scr-result");
+  const before = await stockText();
+  check("pool starts at 5 grand prizes", before.includes("5"), before.trim());
+  await page.keyboard.press("Digit5");
+  await sleep(600);
+  check("key 5 shows jackpot", (await screen()) === "scr-jackpot");
+  await shot("08-jackpot");
+  check("jackpot takes one grand prize", (await stockText()) !== before, `${before.trim()} → ${(await stockText()).trim()}`);
+  await page.keyboard.press("Space");
+  check("jackpot ends the game after turn 3",
+    (await screen()) === "scr-result" && (await page.locator("#resultTurns span").count()) === 3);
   check("jackpot gives the grand prize", (await tier()).includes("GRAND"));
   await shot("09b-result-jackpot");
 
-  // Player 4: on-screen spin.
+  // Player 6: on-screen spin, then cancelled.
   await page.keyboard.press("Space");
   await page.keyboard.press("KeyW");
   await sleep(1500);
@@ -195,8 +197,8 @@ async function run(engineName) {
   await page.reload();
   await sleep(500);
   const reloaded = await page.evaluate(() => JSON.parse(localStorage.getItem("spinTheGlobe.v1")));
-  check("log has 4 players", stored.log.length === 4, `log=${stored.log.length}`);
-  check("stock and log survive reload", reloaded.stock === stored.stock && reloaded.log.length === 4,
+  check("log has 5 players", stored.log.length === 5, `log=${stored.log.length}`);
+  check("stock and log survive reload", reloaded.stock === stored.stock && reloaded.log.length === 5,
     `stock ${stored.stock}→${reloaded.stock}`);
   check("header shows stock after reload", (await stockText()).includes(String(reloaded.stock)));
 
@@ -212,7 +214,7 @@ async function run(engineName) {
   const csvPath = path.join(OUT, `${engineName}-log.csv`);
   await download.saveAs(csvPath);
   const csv = fs.readFileSync(csvPath, "utf8").trim().split("\n");
-  check("CSV has header + 4 rows", csv.length === 5, `${csv.length} lines`);
+  check("CSV has header + 5 rows", csv.length === 6, `${csv.length} lines`);
   check("CSV has columns for 5 turns", csv[0].includes("t5_segment"));
   await page.keyboard.press("Escape");
 

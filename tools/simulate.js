@@ -15,9 +15,9 @@ const TURNS = CFG.turnsPerPlayer;
 const MIN = CFG.minCorrect;
 const DAYS = 1000;
 
-const RANK = { consolation: 0, bronze: 1, silver: 2, grand: 3 };
+const RANK = { consolation: 0, bronze: 1, silver: 2, gold: 3, grand: 4 };
 
-const tiers = { consolation: 0, bronze: 0, silver: 0, grand: 0 };
+const tiers = { consolation: 0, bronze: 0, silver: 0, gold: 0, grand: 0 };
 let hits = 0;
 const soldOutAt = [];
 
@@ -29,16 +29,15 @@ for (let d = 0; d < DAYS; d++) {
     let correct = 0;
     let turns = 0;
     while (turns < TURNS) {
+      turns++;
       if (Math.random() < odds) {
-        if (jackpot) continue; // second jackpot: spin again
         jackpot = stock > 0 ? "grand" : "silver";
         if (stock > 0 && --stock === 0) soldOut = p;
-      } else if (Math.random() < winRate) {
-        correct++;
+        break; // a jackpot ends the game
       }
-      turns++;
+      if (Math.random() < winRate) correct++;
     }
-    let tier = correct >= MIN.silver ? "silver" : correct >= MIN.bronze ? "bronze" : "consolation";
+    let tier = correct >= MIN.gold ? "gold" : correct >= MIN.silver ? "silver" : correct >= MIN.bronze ? "bronze" : "consolation";
     if (jackpot && RANK[jackpot] > RANK[tier]) tier = jackpot;
     tiers[tier]++;
     if (jackpot) hits++;
@@ -54,5 +53,5 @@ const lastAll = soldOutAt.filter((x) => x === Infinity).length;
 
 console.log(`odds ${odds} · win rate ${winRate} · stock ${stock0} · ${TURNS} turns · ${PLAYERS} players/day × ${DAYS} days`);
 console.log(`players hitting a jackpot: ${pct(hits)} (theory ${(100 * (1 - (1 - odds) ** TURNS)).toFixed(1)}%)`);
-console.log(`tiers: consolation ${pct(tiers.consolation)} · bronze ${pct(tiers.bronze)} · silver ${pct(tiers.silver)} · grand ${pct(tiers.grand)}`);
+console.log(`tiers: consolation ${pct(tiers.consolation)} · bronze ${pct(tiers.bronze)} · silver ${pct(tiers.silver)} · gold ${pct(tiers.gold)} · grand ${pct(tiers.grand)}`);
 console.log(`grand prizes sell out at player #${median === Infinity ? "never (median)" : median} (median); stock lasts the whole day in ${(100 * lastAll / DAYS).toFixed(0)}% of days`);

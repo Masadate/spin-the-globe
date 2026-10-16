@@ -39,10 +39,9 @@ It runs in Safari 15+ or Chrome on a Mac (macOS 12 Monterey or newer). It needs 
 | H | Show or hide the key hints |
 | Shift + A | Admin panel |
 
-- Each player gets 5 turns. A JACKPOT uses one of them.
+- Each player gets up to 5 turns. A JACKPOT ends the game at once, whatever turns are left.
 - The app grades answers automatically.
 - The result screen shows the player's tier. Staff choose the prize.
-- A second JACKPOT for the same player shows "spin once more". Each player can win one grand prize at most.
 
 ### Prize rule
 
@@ -52,7 +51,8 @@ The prize is the higher of the quiz tier and the jackpot tier.
 |---|---|
 | 0–1 correct | Consolation |
 | 2–3 correct | Bronze |
-| 4–5 correct | Silver |
+| 4 correct | Silver |
+| 5 correct | Gold |
 | JACKPOT, stock left | Grand prize |
 | JACKPOT, stock gone | Silver ("BIG PRIZE") |
 
@@ -85,7 +85,7 @@ The header shows how many grand prizes are left. Adjust the count in the admin p
 |---|---|
 | Replace a language clip with a real voice | Record the sentence on a phone. Save it as MP3 under the same name in `app/assets/audio/language/` (e.g. `fr.mp3`). |
 | Add Mongolian | Record the Mongolian sentence and save it as `app/assets/audio/language/mn.mp3`. The app picks it up on reload. |
-| Turns, prize tiers, prize names, hand-over text, timer, jackpot odds, stock | Edit `app/js/config.js` in TextEdit, then reload. A changed value replaces any value set earlier in the admin panel. |
+| Turns, prize tiers, prize names, timer, jackpot odds, stock | Edit `app/js/config.js` in TextEdit, then reload. A changed value replaces any value set earlier in the admin panel. |
 | Where each anthem clip starts | Edit `tools/song_starts.json` (seconds per country code), then rerun `python tools/build_data.py`. Every clip plays 15 s, starting at 0 by default. |
 | New Japanese text | Rerun `python tools/build_fonts.py <font dir>` on the build PC. Without it, new characters show in the system font. |
 

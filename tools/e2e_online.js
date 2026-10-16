@@ -91,17 +91,17 @@ async function touchRun(engineName, w, h) {
   await shot("4-reveal");
   await page.tap('#reveal [data-tap="next"]');
   check(`${tag}: Next button moves to turn 2`, (await screen()) === "scr-turn");
-  await page.tap('.seg-card[data-seg="jackpot"]');
-  await sleep(300);
-  await shot("5-jackpot");
-  await page.tap('#scr-jackpot [data-tap="next"]');
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 2; i++) {
     await page.tap('.seg-card[data-seg="flag"]');
     await sleep(150);
     await page.tap("#options .opt >> nth=0");
     await page.tap('#reveal [data-tap="next"]');
   }
-  check(`${tag}: game ends on result screen after 5 turns`, (await screen()) === "scr-result");
+  await page.tap('.seg-card[data-seg="jackpot"]');
+  await sleep(300);
+  await shot("5-jackpot");
+  await page.tap('#scr-jackpot [data-tap="next"]');
+  check(`${tag}: JACKPOT on turn 4 ends the game`, (await screen()) === "scr-result");
   await shot("6-result");
   await page.tap('#scr-result [data-tap="next"]');
   check(`${tag}: Next player starts a new game`, (await screen()) === "scr-turn");

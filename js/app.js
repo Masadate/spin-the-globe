@@ -13,8 +13,8 @@
   var SEG_ORDER = ["song", "map", "flag", "lang", "jackpot"];
   var QUIZ_SEGS = ["song", "map", "flag", "lang"];
   var WHEEL_ORDER = ["song", "map", "jackpot", "flag", "lang"];
-  var TIER_RANK = { consolation: 0, bronze: 1, silver: 2, grand: 3 };
-  var MEDAL = { consolation: "🍬", bronze: "🥉", silver: "🥈", grand: "🏆" };
+  var TIER_RANK = { consolation: 0, bronze: 1, silver: 2, gold: 3, grand: 4 };
+  var MEDAL = { consolation: "🍬", bronze: "🥉", silver: "🥈", gold: "🥇", grand: "🏆" };
   var STORE_KEY = "spinTheGlobe.v1";
   var SILENT_WAV = "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=";
 
@@ -578,11 +578,6 @@
   }
 
   function hitJackpot(via) {
-    if (game.play.jackpot) {
-      toast("🎰 Lucky again! Spin once more! <small>もう一度回して！</small>");
-      setTimeout(function () { $$(".seg-card").forEach(function (c) { c.classList.remove("picked"); }); }, 600);
-      return;
-    }
     var tier = "silver";
     if (saved.stock > 0) {
       saved.stock -= 1;
@@ -614,7 +609,7 @@
   function nextTurn() {
     stopClip();
     game.turn += 1;
-    if (game.turn >= CFG.turnsPerPlayer) finishPlay();
+    if (game.turn >= CFG.turnsPerPlayer || game.play.jackpot) finishPlay();
     else showTurn();
   }
 
@@ -622,7 +617,7 @@
     var p = game.play;
     var correct = p.turns.filter(function (t) { return t.correct; }).length;
     var min = CFG.minCorrect;
-    var tier = correct >= min.silver ? "silver" : correct >= min.bronze ? "bronze" : "consolation";
+    var tier = correct >= min.gold ? "gold" : correct >= min.silver ? "silver" : correct >= min.bronze ? "bronze" : "consolation";
     if (p.jackpot && TIER_RANK[p.jackpot] > TIER_RANK[tier]) tier = p.jackpot;
     var rec = {
       n: saved.log.length + 1,
@@ -773,7 +768,7 @@
   function renderAdmin() {
     var log = saved.log;
     var n = log.length;
-    var tiers = { consolation: 0, bronze: 0, silver: 0, grand: 0 };
+    var tiers = { consolation: 0, bronze: 0, silver: 0, gold: 0, grand: 0 };
     var segs = {};
     QUIZ_SEGS.forEach(function (s) { segs[s] = [0, 0]; });
     var secs = 0, jackpots = 0;
@@ -791,7 +786,8 @@
     var rows = [
       ["Players", n],
       ["Expected cash", "¥" + (n * CFG.price).toLocaleString()],
-      ["Consolation · Bronze · Silver · Grand", tiers.consolation + " · " + tiers.bronze + " · " + tiers.silver + " · " + tiers.grand],
+      ["Consolation · Bronze · Silver · Gold · Grand",
+        [tiers.consolation, tiers.bronze, tiers.silver, tiers.gold, tiers.grand].join(" · ")],
       ["Players who hit JACKPOT", jackpots],
       ["Average play time", n ? fmtDuration(secs / n) : "—"],
     ];

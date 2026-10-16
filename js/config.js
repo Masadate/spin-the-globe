@@ -10,10 +10,11 @@ window.CONFIG = {
   grandPrizeStock: 5,
 
   // Jackpot chance for the on-screen spin. The physical wheel needs a 7.2° wedge (2%).
+  // A jackpot ends the game, whatever turns are left.
   jackpotOdds: 0.02,
 
   // Correct answers needed for each quiz tier. Fewer than bronze gets the consolation prize.
-  minCorrect: { bronze: 2, silver: 4 },
+  minCorrect: { bronze: 2, silver: 4, gold: 5 },
 
   // Visible countdown per question. It never fails the player automatically.
   timerSeconds: 30,
@@ -26,6 +27,7 @@ window.CONFIG = {
     consolation: { en: "Thanks for playing!", ja: "参加賞", color: "#8fa3bf" },
     bronze: { en: "BRONZE", ja: "銅賞", color: "#d08a4a" },
     silver: { en: "SILVER", ja: "銀賞", color: "#cfd8e3" },
+    gold: { en: "GOLD", ja: "金賞", color: "#e6b422" },
     grand: { en: "GRAND PRIZE", ja: "特賞", color: "#ffc93c" },
   },
 
