@@ -93,6 +93,8 @@ async function run(engineName) {
 
   // Player 1: flag, map, then three flags. Four right answers earn silver.
   check("title screen shows 5 turns", (await page.textContent("#priceLine")).includes("5 turns"));
+  check("title screen shows the version", /^v\d+\.\d+\.\d+ · build [0-9a-f]{7}$/.test(await page.textContent("#buildTag")),
+    await page.textContent("#buildTag"));
   check("wheel says National Anthem", (await page.textContent("#scr-attract .wheel-svg")).includes("Anthem"));
   await page.keyboard.press("Space");
   check("Space starts turn 1", (await screen()) === "scr-turn");

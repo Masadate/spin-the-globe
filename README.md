@@ -8,6 +8,7 @@ It runs in Safari 15+ or Chrome on a Mac (macOS 12 Monterey or newer). It needs 
 **https://masadate.github.io/spin-the-globe/**
 
 - Open the link once on Wi-Fi. Wait for **✓ Offline ready** at the bottom right of the title screen. That browser then runs the quiz with no network.
+- The title screen shows the version in its bottom-right corner, such as `v1.2.2 · build dfaa0dc`. After an update, the first reload still shows the old version while the new one downloads. Reload again a few seconds later.
 - Phones and tablets work by tapping: Start, a segment, an answer, then Next.
 - Players and grand prizes are saved separately per browser and per address. The online copy and the unzipped copy keep separate records, so **use one copy for the whole of Saturday**.
 
@@ -111,7 +112,7 @@ NODE_PATH=<playwright node_modules> node e2e_online.js <local server url> <scree
 python publish.py "what changed"
 ```
 
-`publish.py` updates the online version. Rebuild the zip as well if the Mac uses the offline copy.
+`publish.py` updates the online version. Bump `RELEASE` in `build_site.py` before each publish so the title screen shows a new number. Rebuild the zip as well if the Mac uses the offline copy.
 
 ## Sources
 

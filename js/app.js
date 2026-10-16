@@ -1093,6 +1093,8 @@
       if (game.screen === "turn" && !game.spinning) spinWheel();
     });
     checkAssets();
+    var b = window.BUILD;
+    if (b) $("#buildTag").textContent = "v" + b.release + " · build " + b.version.slice(0, 7);
     show("attract");
   }
 

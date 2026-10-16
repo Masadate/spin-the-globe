@@ -148,6 +148,7 @@ kbd {
 /* Attract */
 
 #scr-attract { align-items: center; justify-content: center; gap: 4vw; }
+#buildTag { position: absolute; right: 2rem; bottom: 0.4rem; margin: 0; font: 0.8rem var(--f-body); color: var(--muted); }
 .attract-wheel { width: 38vh; height: 38vh; flex: none; }
 .attract-wheel svg { width: 100%; height: 100%; animation: spin 30s linear infinite; }
 
