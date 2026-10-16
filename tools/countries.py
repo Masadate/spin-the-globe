@@ -78,7 +78,7 @@ COUNTRIES = [
 
     # Europe
     dict(code="gb", a3="GBR", name="United Kingdom", ja="イギリス", cont="Europe", langs=["en"], tier=1,
-         fact="Made up of England, Scotland, Wales and Northern Ireland.", shape=True, crop=(25, 25, 2.2),
+         fact="Made up of England, Scotland, Wales and Northern Ireland.", shape=True, crop=(50, 50, 1.5),
          anthem="U.S. Navy Band - God Save the King.oga"),
     dict(code="ie", a3="IRL", name="Ireland", ja="アイルランド", cont="Europe", langs=["en", "ga"], tier=2,
          fact="Capital: Dublin. Known as the Emerald Isle.", shape=True),
@@ -185,8 +185,9 @@ COUNTRIES = [
          fact="Capital: Wellington. Has more sheep than people.", shape=True),
 ]
 
-# Flags that look alike never appear in the same question.
-FLAG_LOOKALIKES = [{"ie", "it", "mx"}, {"pl", "id"}, {"au", "nz"}]
+# Flags that look alike never appear in the same question. The UK sits with
+# Australia and New Zealand because its zoomed clue shows only the Union Jack.
+FLAG_LOOKALIKES = [{"ie", "it", "mx"}, {"pl", "id"}, {"au", "nz", "gb"}]
 
 # Languages that sound alike to a casual listener count as the same language.
 SIMILAR_LANGS = [{"ru", "uk"}, {"ms", "id"}, {"hi", "ur", "ne"}, {"sv", "no", "da"},

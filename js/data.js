@@ -655,6 +655,7 @@ window.DATA = {
   ],
   [
    "au",
+   "gb",
    "nz"
   ]
  ],
@@ -1280,9 +1281,9 @@ window.DATA = {
    "diff": "medium",
    "src": "assets/flags/gb.svg",
    "crop": [
-    25,
-    25,
-    2.2
+    50,
+    50,
+    1.5
    ]
   },
   {
